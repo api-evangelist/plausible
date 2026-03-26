@@ -1,0 +1,31 @@
+aid: plausible
+name: Plausible
+description: >-
+  Plausible is an open source, privacy-friendly web analytics platform as an alternative to Google Analytics.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - API Analysis
+  - Web Analytics
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/apis.yml
+created: '2026-03-26'
+modified: '2026-03-26'
+specificationVersion: '0.19'
+apis:
+  - aid: plausible:plausible
+    name: Plausible
+    description: >-
+      Plausible is an open source, privacy-friendly web analytics platform as an alternative to Google Analytics.
+    humanURL: https://plausible.io
+    tags:
+      - API Analysis
+    properties:
+      - type: Documentation
+        url: https://plausible.io/docs
+common:
+  - type: Website
+    url: https://plausible.io
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
