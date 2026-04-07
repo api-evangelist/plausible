@@ -10,11 +10,11 @@ type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Analytics
-  - Web Analytics
-  - Privacy
-  - Open Source
-  - GDPR
   - Cookie-Free
+  - GDPR
+  - Open Source
+  - Privacy
+  - Web Analytics
 url: >-
   https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/apis.yml
 created: '2026-03-26'
@@ -33,9 +33,9 @@ apis:
     humanURL: https://plausible.io/docs/stats-api
     tags:
       - Analytics
-      - Statistics
       - Metrics
       - Reporting
+      - Statistics
     properties:
       - type: Documentation
         url: https://plausible.io/docs/stats-api
@@ -52,8 +52,8 @@ apis:
     tags:
       - Analytics
       - Events
-      - Tracking
       - Pageviews
+      - Tracking
     properties:
       - type: Documentation
         url: https://plausible.io/docs/events-api
@@ -68,9 +68,9 @@ apis:
     humanURL: https://plausible.io/docs/sites-api
     tags:
       - Analytics
-      - Sites
       - Management
       - Provisioning
+      - Sites
     properties:
       - type: Documentation
         url: https://plausible.io/docs/sites-api
