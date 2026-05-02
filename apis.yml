@@ -18,7 +18,7 @@ tags:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/apis.yml
 created: '2026-03-26'
-modified: '2026-03-26'
+modified: '2026-04-28'
 specificationVersion: '0.19'
 apis:
   - aid: plausible:stats-api
@@ -31,6 +31,7 @@ apis:
       bounce rates, visit durations, and custom event data for building
       external dashboards and integrating analytics into other applications.
     humanURL: https://plausible.io/docs/stats-api
+    baseURL: https://plausible.io/api/v2
     tags:
       - Analytics
       - Metrics
@@ -39,6 +40,9 @@ apis:
     properties:
       - type: Documentation
         url: https://plausible.io/docs/stats-api
+      - type: OpenAPI
+        url: >-
+          https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/openapi/plausible-stats-openapi.yml
   - aid: plausible:events-api
     name: Plausible Events API
     description: >-
@@ -49,6 +53,7 @@ apis:
       revenue tracking data while maintaining Plausible's privacy-first
       approach.
     humanURL: https://plausible.io/docs/events-api
+    baseURL: https://plausible.io/api
     tags:
       - Analytics
       - Events
@@ -57,6 +62,9 @@ apis:
     properties:
       - type: Documentation
         url: https://plausible.io/docs/events-api
+      - type: OpenAPI
+        url: >-
+          https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/openapi/plausible-events-openapi.yml
   - aid: plausible:sites-api
     name: Plausible Sites API
     description: >-
@@ -66,6 +74,7 @@ apis:
       shared links and goals. This API is useful for agencies and platforms
       that need to automate site provisioning and configuration.
     humanURL: https://plausible.io/docs/sites-api
+    baseURL: https://plausible.io/api/v1/sites
     tags:
       - Analytics
       - Management
@@ -74,6 +83,9 @@ apis:
     properties:
       - type: Documentation
         url: https://plausible.io/docs/sites-api
+      - type: OpenAPI
+        url: >-
+          https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/openapi/plausible-sites-openapi.yml
 common:
   - type: Website
     url: https://plausible.io

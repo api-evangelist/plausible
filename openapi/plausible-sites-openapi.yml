@@ -1,0 +1,309 @@
+openapi: 3.0.3
+info:
+  title: Plausible Sites API
+  description: >-
+    The Plausible Sites API enables developers to programmatically manage sites,
+    teams, goals, custom properties, shared links, and guest access within their
+    Plausible account.
+  version: 1.0.0
+  contact:
+    name: Plausible Support
+    url: https://plausible.io/contact
+  license:
+    name: AGPL-3.0
+    url: https://github.com/plausible/analytics/blob/master/LICENSE.md
+servers:
+  - url: https://plausible.io
+    description: Plausible Cloud
+security:
+  - bearerAuth: []
+tags:
+  - name: Sites
+  - name: Teams
+  - name: Goals
+  - name: CustomProps
+  - name: SharedLinks
+  - name: Guests
+paths:
+  /api/v1/sites:
+    get:
+      tags: [Sites]
+      summary: List sites
+      operationId: listSites
+      parameters:
+        - $ref: '#/components/parameters/After'
+        - $ref: '#/components/parameters/Before'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A page of sites.
+    post:
+      tags: [Sites]
+      summary: Create site
+      operationId: createSite
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteCreate'
+      responses:
+        '200':
+          description: Site created.
+  /api/v1/sites/{site_id}:
+    parameters:
+      - $ref: '#/components/parameters/SiteId'
+    get:
+      tags: [Sites]
+      summary: Get site
+      operationId: getSite
+      responses:
+        '200':
+          description: Site details.
+    put:
+      tags: [Sites]
+      summary: Update site
+      operationId: updateSite
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteUpdate'
+      responses:
+        '200':
+          description: Site updated.
+    delete:
+      tags: [Sites]
+      summary: Delete site
+      operationId: deleteSite
+      responses:
+        '200':
+          description: Site deleted.
+  /api/v1/sites/teams:
+    get:
+      tags: [Teams]
+      summary: List teams
+      operationId: listTeams
+      responses:
+        '200':
+          description: Teams accessible to the API key.
+  /api/v1/sites/goals:
+    get:
+      tags: [Goals]
+      summary: List goals
+      operationId: listGoals
+      responses:
+        '200':
+          description: A list of goals.
+    put:
+      tags: [Goals]
+      summary: Create or find a goal
+      operationId: upsertGoal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Goal'
+      responses:
+        '200':
+          description: Goal created or found.
+  /api/v1/sites/goals/{goal_id}:
+    parameters:
+      - in: path
+        name: goal_id
+        required: true
+        schema:
+          type: string
+    delete:
+      tags: [Goals]
+      summary: Delete goal
+      operationId: deleteGoal
+      responses:
+        '200':
+          description: Goal deleted.
+  /api/v1/sites/custom-props:
+    get:
+      tags: [CustomProps]
+      summary: List custom properties
+      operationId: listCustomProps
+      responses:
+        '200':
+          description: A list of custom properties.
+    put:
+      tags: [CustomProps]
+      summary: Create custom property
+      operationId: createCustomProp
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomProp'
+      responses:
+        '200':
+          description: Created.
+  /api/v1/sites/custom-props/{property}:
+    parameters:
+      - in: path
+        name: property
+        required: true
+        schema:
+          type: string
+    delete:
+      tags: [CustomProps]
+      summary: Delete custom property
+      operationId: deleteCustomProp
+      responses:
+        '200':
+          description: Deleted.
+  /api/v1/sites/shared-links:
+    put:
+      tags: [SharedLinks]
+      summary: Create or find shared link
+      operationId: upsertSharedLink
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SharedLink'
+      responses:
+        '200':
+          description: Created or returned.
+  /api/v1/sites/guests:
+    get:
+      tags: [Guests]
+      summary: List guests/invitations
+      operationId: listGuests
+      responses:
+        '200':
+          description: A list of guests.
+    put:
+      tags: [Guests]
+      summary: Invite or manage guest access
+      operationId: upsertGuest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Guest'
+      responses:
+        '200':
+          description: Created or updated.
+  /api/v1/sites/guests/{email}:
+    parameters:
+      - in: path
+        name: email
+        required: true
+        schema:
+          type: string
+    delete:
+      tags: [Guests]
+      summary: Remove guest or invitation
+      operationId: deleteGuest
+      responses:
+        '200':
+          description: Removed.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+  parameters:
+    SiteId:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        type: string
+    After:
+      in: query
+      name: after
+      schema:
+        type: string
+    Before:
+      in: query
+      name: before
+      schema:
+        type: string
+    Limit:
+      in: query
+      name: limit
+      schema:
+        type: integer
+  schemas:
+    SiteCreate:
+      type: object
+      required: [domain]
+      properties:
+        domain:
+          type: string
+        timezone:
+          type: string
+          example: Etc/UTC
+        tracker_script_configuration:
+          $ref: '#/components/schemas/TrackerConfig'
+    SiteUpdate:
+      type: object
+      properties:
+        domain:
+          type: string
+        tracker_script_configuration:
+          $ref: '#/components/schemas/TrackerConfig'
+    TrackerConfig:
+      type: object
+      properties:
+        outbound_links:
+          type: boolean
+        file_downloads:
+          type: boolean
+        form_submissions:
+          type: boolean
+        track_404_pages:
+          type: boolean
+        revenue_tracking:
+          type: boolean
+        hash_based_routing:
+          type: boolean
+    Goal:
+      type: object
+      properties:
+        site_id:
+          type: string
+        goal_type:
+          type: string
+          enum: [event, page]
+        event_name:
+          type: string
+        page_path:
+          type: string
+    CustomProp:
+      type: object
+      properties:
+        site_id:
+          type: string
+        custom_prop:
+          type: string
+    SharedLink:
+      type: object
+      properties:
+        site_id:
+          type: string
+        name:
+          type: string
+        password:
+          type: string
+    Guest:
+      type: object
+      properties:
+        site_id:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum: [viewer, editor]
