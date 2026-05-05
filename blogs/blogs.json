@@ -1,0 +1,13 @@
+{
+  "repo": "plausible",
+  "feeds": [
+    {
+      "source": "https://plausible.io/blog",
+      "feed_url": "https://plausible.io/blog/feed.xml",
+      "saved": 10,
+      "title": "Plausible Analytics"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:33:53Z"
+}
