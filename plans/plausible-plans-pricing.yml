@@ -4,166 +4,209 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Plausible
 providerId: plausible
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - Analytics
+  - Web Analytics
+  - Privacy
   - Cookie-Free
   - GDPR
   - Open Source
-  - Privacy
-  - Web Analytics
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+description: Plausible Analytics is priced on a tiered subscription based on monthly pageview volume.
+  Plans are published per month with a discount for annual billing. The Stats API (read access) and
+  the Sites API (programmatic site management) are gated to the Business and Enterprise plans;
+  the Events API for ingestion is available on all plans. Pricing scales with monthly pageviews
+  and adds team-member, site-count, retention, and API-quota limits per tier.
+sources:
+  - https://plausible.io/#pricing
+  - https://plausible.io/docs/stats-api
+  - https://plausible.io/docs/events-api
 plans:
-  - id: plausible-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Plausible API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+  - id: plausible-starter
+    name: Starter
+    type: subscription
+    description: Entry tier for a single site, 3 years of data retention, dashboard plus email/Slack
+      reports. Stats API is not included.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
+      - label: Monthly Pageviews
+        name: monthly_pageviews
         type: quota
-        metric: requests
-        limit: 1000
+        metric: pageview
+        limit: 10000
         timeFrame: month
         geo: global
-        domains:
-          - https://plausible.io/api/v2
-          - https://plausible.io/api
-          - https://plausible.io/api/v1/sites
         unit: 1
-        price: '0.00'
+        price: '$9/month'
         userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
+      - label: Sites
+        name: sites
+        type: quota
+        metric: site
+        limit: 1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: included
+        userMultiplied: false
+      - label: Data Retention
+        name: data_retention
+        type: quota
+        metric: year
+        limit: 3
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: included
+        userMultiplied: false
+    elements:
+      - name: Dashboard
+      - name: Email and Slack Reports
+      - name: Google Analytics Import
+      - name: Goals and Custom Events
+      - name: Saved Segments
+      - name: Events API (Ingestion)
+  - id: plausible-growth
+    name: Growth
+    type: subscription
+    description: Adds team management, shared links, and embedded dashboards across up to 3 sites
+      and 3 team members. Stats API still excluded.
+    entries:
+      - label: Monthly Pageviews
+        name: monthly_pageviews
+        type: quota
+        metric: pageview
+        limit: 10000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$14/month'
+        userMultiplied: false
+      - label: Sites
+        name: sites
+        type: quota
+        metric: site
+        limit: 3
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: included
+        userMultiplied: false
+      - label: Team Members
+        name: team_members
+        type: quota
+        metric: seat
+        limit: 3
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: included
+        userMultiplied: false
+    elements:
+      - name: Everything in Starter
+      - name: Team Management
+      - name: Shared Links
+      - name: Embedded Dashboards
+      - name: Shared Segments
+  - id: plausible-business
+    name: Business
+    type: subscription
+    description: Unlocks the Stats API at 600 requests per hour, Looker Studio connector, ecommerce
+      revenue attribution, funnels, and 5-year retention across up to 10 sites.
+    entries:
+      - label: Monthly Pageviews
+        name: monthly_pageviews
+        type: quota
+        metric: pageview
+        limit: 10000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$19/month'
+        userMultiplied: false
+      - label: Sites
+        name: sites
+        type: quota
+        metric: site
         limit: 10
-        timeFrame: minute
+        timeFrame: usage
         geo: global
-        domains:
-          - https://plausible.io/api/v2
-          - https://plausible.io/api
-          - https://plausible.io/api/v1/sites
         unit: 1
-        price: '0.00'
+        price: included
         userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Plausible Stats API
-      - name: Plausible Events API
-      - name: Plausible Sites API
-  - id: plausible-pro
-    name: Professional
-    type: paid
-    description: Production tier for Plausible. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
+      - label: Team Members
+        name: team_members
         type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
+        metric: seat
+        limit: 10
+        timeFrame: usage
         geo: global
-        domains:
-          - https://plausible.io/api/v2
-          - https://plausible.io/api
-          - https://plausible.io/api/v1/sites
         unit: 1
-        price: TBD
+        price: included
         userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
+      - label: Stats API Quota
+        name: stats_api_quota
+        type: quota
+        metric: request
+        limit: 600
+        timeFrame: hour
         geo: global
-        domains:
-          - https://plausible.io/api/v2
-          - https://plausible.io/api
-          - https://plausible.io/api/v1/sites
         unit: 1
-        price: '0.00'
+        price: included
         userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
+      - label: Data Retention
+        name: data_retention
+        type: quota
+        metric: year
+        limit: 5
+        timeFrame: usage
         geo: global
-        domains:
-          - https://plausible.io/api/v2
-          - https://plausible.io/api
-          - https://plausible.io/api/v1/sites
-        unit: 1000
-        price: TBD
+        unit: 1
+        price: included
         userMultiplied: false
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Plausible Stats API
-      - name: Plausible Events API
-      - name: Plausible Sites API
+      - name: Everything in Growth
+      - name: Stats API
+      - name: Looker Studio Connector
+      - name: Ecommerce Revenue Attribution
+      - name: Funnels
+      - name: Custom Properties
+      - name: Consolidated View
   - id: plausible-enterprise
     name: Enterprise
     type: enterprise
-    description: Custom-negotiated tier for Plausible. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
+    description: Custom-quoted plan for teams that need more than 10 sites, more than 10 team members,
+      higher Stats API throughput, the Sites API, SSO, managed proxy, scheduled exports, and longer
+      retention.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
+      - label: Monthly Pageviews
+        name: monthly_pageviews
         type: quota
-        metric: requests
+        metric: pageview
         limit: -1
         timeFrame: month
-        geo: configurable
-        domains:
-          - https://plausible.io/api/v2
-          - https://plausible.io/api
-          - https://plausible.io/api/v1/sites
+        geo: global
         unit: 1
         price: custom
         userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://plausible.io/api/v2
-          - https://plausible.io/api
-          - https://plausible.io/api/v1/sites
+      - label: Stats API Quota
+        name: stats_api_quota
+        type: quota
+        metric: request
+        limit: -1
+        timeFrame: hour
+        geo: global
         unit: 1
         price: custom
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Plausible Stats API
-      - name: Plausible Events API
-      - name: Plausible Sites API
+      - name: Everything in Business
+      - name: Sites API
+      - name: SSO
+      - name: Managed Proxy
+      - name: Scheduled Data Exports
+      - name: Priority Support
+      - name: Extended Retention
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
