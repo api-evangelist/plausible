@@ -103,13 +103,13 @@ common:
     url: https://github.com/plausible/analytics
   - type: Login
     url: https://plausible.io/login
-  - type: Signup
+  - type: SignUp
     url: https://plausible.io/register
   - type: Support
     url: https://plausible.io/contact
   - type: SelfHosted
     url: https://plausible.io/self-hosted-web-analytics
-  - type: Changelog
+  - type: ChangeLog
     url: https://github.com/plausible/analytics/releases
   - type: TermsOfService
     url: https://plausible.io/terms
