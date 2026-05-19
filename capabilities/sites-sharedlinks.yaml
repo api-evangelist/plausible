@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Plausible Sites API — SharedLinks
+  description: 'Plausible Sites API — SharedLinks. 1 operations. Lead operation: Create or find shared link. Self-contained
+    Naftiko capability covering one Plausible business surface.'
+  tags:
+  - Plausible
+  - SharedLinks
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PLAUSIBLE_API_KEY: PLAUSIBLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: sites-sharedlinks
+    baseUri: https://plausible.io
+    description: Plausible Sites API — SharedLinks business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-sites-shared-links
+      path: /api/v1/sites/shared-links
+      operations:
+      - name: upsertsharedlink
+        method: PUT
+        description: Create or find shared link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.PLAUSIBLE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: sites-sharedlinks-rest
+    port: 8080
+    description: REST adapter for Plausible Sites API — SharedLinks. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/v1/sites/shared-links
+      name: api-v1-sites-shared-links
+      description: REST surface for api-v1-sites-shared-links.
+      operations:
+      - method: PUT
+        name: upsertsharedlink
+        description: Create or find shared link
+        call: sites-sharedlinks.upsertsharedlink
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: sites-sharedlinks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Plausible Sites API — SharedLinks. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: create-find-shared-link
+      description: Create or find shared link
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: sites-sharedlinks.upsertsharedlink
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

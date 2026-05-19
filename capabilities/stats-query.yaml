@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Plausible Stats API — Query
+  description: 'Plausible Stats API — Query. 1 operations. Lead operation: Run a query against site analytics data. Self-contained
+    Naftiko capability covering one Plausible business surface.'
+  tags:
+  - Plausible
+  - Query
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PLAUSIBLE_API_KEY: PLAUSIBLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: stats-query
+    baseUri: https://plausible.io
+    description: Plausible Stats API — Query business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v2-query
+      path: /api/v2/query
+      operations:
+      - name: runquery
+        method: POST
+        description: Run a query against site analytics data
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.PLAUSIBLE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: stats-query-rest
+    port: 8080
+    description: REST adapter for Plausible Stats API — Query. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/v2/query
+      name: api-v2-query
+      description: REST surface for api-v2-query.
+      operations:
+      - method: POST
+        name: runquery
+        description: Run a query against site analytics data
+        call: stats-query.runquery
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: stats-query-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Plausible Stats API — Query. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: run-query-against-site-analytics
+      description: Run a query against site analytics data
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: stats-query.runquery
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
