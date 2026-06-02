@@ -1,0 +1,173 @@
+aid: plausible
+name: Plausible
+review_type: streaming-availability
+question: Does Plausible expose a documented, first-party public streaming surface (WebSocket, Server-Sent Events, or webhooks)?
+answer: No
+summary: |
+  Plausible Analytics is a privacy-friendly, cookie-free web analytics platform
+  (cloud + self-hosted) whose entire documented public API surface is REST over
+  HTTPS with JSON payloads. The three documented APIs — the Stats API v2
+  (POST /api/v2/query for aggregate, time-series, and breakdown reporting),
+  the Events API (POST /api/event for server-side pageview / custom event
+  ingestion), and the Sites Provisioning API v1 (CRUD for sites, teams, goals,
+  custom properties, shared links, and guests under /api/v1/sites) — are all
+  documented as request/response JSON over HTTPS. There is no documented
+  WebSocket endpoint, no Server-Sent Events (text/event-stream) endpoint, no
+  long-poll streaming endpoint, and no outbound webhook / callback registration
+  mechanism. Real-time-style visibility (the "Realtime" dashboard view) is
+  obtained on the Plausible side and surfaced through the same REST Stats API
+  via polling — there is no push channel a third-party server can subscribe to.
+  The Plausible developer area does not document a webhook subscription
+  endpoint, the OpenAPI descriptions captured in this repo contain no
+  `callbacks` objects, and the events ingestion endpoint is one-way inbound
+  (integrator -> Plausible), not outbound (Plausible -> integrator).
+investigated_on: '2026-05-30'
+investigated_by: API Evangelist
+findings:
+  - name: Stats API v2 is JSON over HTTPS with no streaming response
+    detail: |
+      The Stats API v2 exposes a single operation, POST /api/v2/query, which
+      accepts a JSON query body (metrics, date_range, dimensions, filters,
+      include, order_by, pagination) and returns a JSON results envelope. The
+      OpenAPI description in this repo (openapi/plausible-stats-openapi.yml)
+      declares application/json for both request and response — there is no
+      text/event-stream response, no WebSocket upgrade, and no `callbacks`
+      object. Real-time visibility is achieved by re-issuing the query, not by
+      a push channel. Authentication is a bearer API key in the Authorization
+      header.
+    sources:
+      - https://plausible.io/docs/stats-api
+      - openapi/plausible-stats-openapi.yml
+  - name: Events API is one-way inbound HTTP, not an outbound stream or webhook
+    detail: |
+      The Events API exposes POST /api/event, which integrators call to record
+      pageviews and custom events from server-side code or environments where
+      the JavaScript snippet cannot run. It is an inbound ingestion endpoint
+      (integrator -> Plausible), not an outbound push channel from Plausible
+      to the integrator. The OpenAPI description
+      (openapi/plausible-events-openapi.yml) documents a single
+      request/response JSON operation with no streaming response, no
+      WebSocket, and no callbacks. There is no documented mechanism for
+      Plausible to push received events back to a subscriber.
+    sources:
+      - https://plausible.io/docs/events-api
+      - openapi/plausible-events-openapi.yml
+  - name: Sites Provisioning API v1 is REST CRUD with no streaming or webhooks
+    detail: |
+      The Sites API v1 covers /api/v1/sites and nested resources for teams,
+      goals, custom properties, shared links, and guests. Every documented
+      operation is a standard REST CRUD verb (GET / POST / PUT / DELETE)
+      returning JSON. The OpenAPI description
+      (openapi/plausible-sites-openapi.yml) contains no text/event-stream
+      responses, no WebSocket endpoints, and no `callbacks` objects. There is
+      no documented endpoint for registering a webhook URL to be notified of
+      site creation, goal hits, guest changes, or shared-link events.
+    sources:
+      - https://plausible.io/docs/sites-api
+      - openapi/plausible-sites-openapi.yml
+  - name: No documented outbound webhooks in the developer area
+    detail: |
+      A review of the Plausible developer documentation (plausible.io/docs),
+      the Stats API docs, the Events API docs, and the Sites Provisioning API
+      docs surfaces no webhook subscription mechanism. There is no endpoint
+      for registering a callback URL, no "webhooks" section in the docs
+      navigation, and no `callbacks` objects in any of the three OpenAPI
+      files captured in this repo. The Plausible GitHub organization
+      (github.com/plausible/analytics) hosts the open-source server but the
+      public hosted product's documented surface does not include outbound
+      webhook delivery to integrators.
+    sources:
+      - https://plausible.io/docs
+      - openapi/plausible-stats-openapi.yml
+      - openapi/plausible-events-openapi.yml
+      - openapi/plausible-sites-openapi.yml
+  - name: Realtime dashboard view is server-side, surfaced via REST polling
+    detail: |
+      Plausible's "Realtime" current-visitors view is computed inside Plausible
+      and exposed to integrators through the same Stats API v2 query
+      surface — by issuing a query with a realtime-scoped date range and
+      re-polling on a cadence. There is no documented push subscription that
+      streams realtime visitor counts to an external consumer; clients must
+      poll. This is consistent across the cloud product and the open-source
+      self-hosted distribution.
+    sources:
+      - https://plausible.io/docs/stats-api
+documented_apis:
+  - name: Plausible Stats API v2
+    protocol: REST/HTTPS
+    websocket: false
+    sse: false
+    webhooks: false
+    notes: |
+      Single POST /api/v2/query operation. JSON request / JSON response.
+      Bearer API key auth. Realtime visibility achieved by polling, not push.
+  - name: Plausible Events API
+    protocol: REST/HTTPS
+    websocket: false
+    sse: false
+    webhooks: false
+    notes: |
+      POST /api/event for inbound server-side pageview / custom event
+      ingestion. One-way (integrator -> Plausible). Not an outbound stream
+      or webhook callback.
+  - name: Plausible Sites Provisioning API v1
+    protocol: REST/HTTPS
+    websocket: false
+    sse: false
+    webhooks: false
+    notes: |
+      CRUD for sites, teams, goals, custom properties, shared links, guests.
+      JSON request / JSON response. No callbacks, no streaming endpoints.
+streaming_surface:
+  websocket: []
+  sse: []
+  webhooks: []
+  notes: |
+    Plausible operates no first-party WebSocket, Server-Sent Events, or
+    outbound webhook channel on its public developer surface. All three
+    documented APIs (Stats v2, Events, Sites v1) are request/response JSON
+    over HTTPS. Realtime metrics are obtained by polling the Stats API.
+recommendations_for_realtime:
+  - For "currently online" / realtime visitor counts, poll the Stats API v2
+    (POST /api/v2/query) with a realtime-scoped query on a cadence aligned
+    with Plausible's documented fair-use rate limits. Do not represent
+    Plausible as pushing realtime data.
+  - For server-side event capture from non-browser environments, POST to
+    /api/event. Treat this as inbound ingestion only — Plausible will not
+    echo, broadcast, or webhook captured events back to subscribers.
+  - For dashboards that need true push delivery (rather than poll), Plausible
+    is not the right boundary; budget for a poll loop against the Stats API
+    or compose with a separate event bus on the integrator's side.
+  - Do not represent Plausible as exposing a first-party WebSocket, SSE, or
+    webhook surface. None is documented at plausible.io/docs or in the
+    captured OpenAPI files.
+asyncapi_recommendation:
+  produce: false
+  reason: |
+    There is no first-party Plausible-hosted WebSocket, Server-Sent Events,
+    or outbound webhook channel to describe. Authoring an AsyncAPI document
+    under the Plausible AID would require fabricating channels, servers, and
+    messages that the public Plausible developer surface does not publish.
+    Per the no-fabrication rule, no AsyncAPI artifact is produced. Reevaluate
+    if Plausible introduces a documented streaming endpoint or a webhook
+    subscription mechanism in its developer area.
+sources_checked:
+  - url: https://plausible.io/docs
+    note: Developer documentation root. No webhooks / streaming section.
+  - url: https://plausible.io/docs/stats-api
+    note: Stats API v2 documented as POST /api/v2/query, JSON request/response. No streaming surface.
+  - url: https://plausible.io/docs/events-api
+    note: Events API documented as POST /api/event for inbound ingestion. One-way HTTP.
+  - url: https://plausible.io/docs/sites-api
+    note: Sites Provisioning API v1 documented as REST CRUD over /api/v1/sites and nested resources. No callbacks.
+  - url: openapi/plausible-stats-openapi.yml
+    note: Captured OpenAPI for Stats v2. Single POST /api/v2/query, application/json. No text/event-stream responses, no callbacks objects.
+  - url: openapi/plausible-events-openapi.yml
+    note: Captured OpenAPI for Events. Single POST /api/event, application/json. No callbacks objects.
+  - url: openapi/plausible-sites-openapi.yml
+    note: Captured OpenAPI for Sites v1. CRUD over sites, teams, goals, custom-props, shared-links, guests. No callbacks objects, no streaming responses.
+  - url: https://github.com/plausible/analytics
+    note: Open-source server repository. Hosted product's public developer surface does not document outbound webhooks or streaming endpoints.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
