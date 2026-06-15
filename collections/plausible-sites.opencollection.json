@@ -1,0 +1,323 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Plausible Sites API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List sites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://plausible.io/api/v1/sites",
+            "params": [
+              {
+                "name": "after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List sites"
+        },
+        {
+          "info": {
+            "name": "Create site",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://plausible.io/api/v1/sites",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create site"
+        },
+        {
+          "info": {
+            "name": "Get site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://plausible.io/api/v1/sites/:site_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get site"
+        },
+        {
+          "info": {
+            "name": "Update site",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://plausible.io/api/v1/sites/:site_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update site"
+        },
+        {
+          "info": {
+            "name": "Delete site",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://plausible.io/api/v1/sites/:site_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete site"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Teams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://plausible.io/api/v1/sites/teams"
+          },
+          "docs": "List teams"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Goals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List goals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://plausible.io/api/v1/sites/goals"
+          },
+          "docs": "List goals"
+        },
+        {
+          "info": {
+            "name": "Create or find a goal",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://plausible.io/api/v1/sites/goals",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or find a goal"
+        },
+        {
+          "info": {
+            "name": "Delete goal",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://plausible.io/api/v1/sites/goals/:goal_id",
+            "params": [
+              {
+                "name": "goal_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete goal"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "CustomProps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List custom properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://plausible.io/api/v1/sites/custom-props"
+          },
+          "docs": "List custom properties"
+        },
+        {
+          "info": {
+            "name": "Create custom property",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://plausible.io/api/v1/sites/custom-props",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create custom property"
+        },
+        {
+          "info": {
+            "name": "Delete custom property",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://plausible.io/api/v1/sites/custom-props/:property",
+            "params": [
+              {
+                "name": "property",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete custom property"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "SharedLinks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create or find shared link",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://plausible.io/api/v1/sites/shared-links",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or find shared link"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Guests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List guests/invitations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://plausible.io/api/v1/sites/guests"
+          },
+          "docs": "List guests/invitations"
+        },
+        {
+          "info": {
+            "name": "Invite or manage guest access",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://plausible.io/api/v1/sites/guests",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invite or manage guest access"
+        },
+        {
+          "info": {
+            "name": "Remove guest or invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://plausible.io/api/v1/sites/guests/:email",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove guest or invitation"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

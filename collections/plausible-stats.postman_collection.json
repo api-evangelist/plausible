@@ -1,0 +1,291 @@
+{
+  "item": [
+    {
+      "id": "ab0cf739-19a1-4b80-9ed5-71ead8cbbef6",
+      "name": "Query",
+      "description": {
+        "content": "Run analytics queries against site data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b9c51a75-ec15-49ef-9c07-cc51b9893de7",
+          "name": "Run a query against site analytics data",
+          "request": {
+            "name": "Run a query against site analytics data",
+            "description": {
+              "content": "Execute a query against a Plausible site to retrieve metrics with optional dimensions, filters, ordering, and pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"site_id\": \"<string>\",\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_range\": \"<string>\",\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"order_by\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"include\": {\n    \"imports\": \"<boolean>\",\n    \"time_labels\": \"<boolean>\",\n    \"total_rows\": \"<boolean>\"\n  },\n  \"pagination\": {\n    \"limit\": \"<integer>\",\n    \"offset\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "36315675-5ed9-4e2a-94eb-b2c8a39e534a",
+              "name": "Query result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"site_id\": \"example.com\",\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_range\": \"<string>\",\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"order_by\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"include\": {\n    \"imports\": \"<boolean>\",\n    \"time_labels\": \"<boolean>\",\n    \"total_rows\": \"<boolean>\"\n  },\n  \"pagination\": {\n    \"limit\": \"<integer>\",\n    \"offset\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"metrics\": [\n        5008.653107615623,\n        5947.23289733113\n      ],\n      \"dimensions\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"metrics\": [\n        7140.065182050038,\n        8099.900505265453\n      ],\n      \"dimensions\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"meta\": {},\n  \"query\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1db3861e-a56a-442f-b98e-147d51ad61ae",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"site_id\": \"example.com\",\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_range\": \"<string>\",\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"order_by\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"include\": {\n    \"imports\": \"<boolean>\",\n    \"time_labels\": \"<boolean>\",\n    \"total_rows\": \"<boolean>\"\n  },\n  \"pagination\": {\n    \"limit\": \"<integer>\",\n    \"offset\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "12c2bc4e-8b4a-4fb0-9758-6672d17e6cf7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"site_id\": \"example.com\",\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_range\": \"<string>\",\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"order_by\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"include\": {\n    \"imports\": \"<boolean>\",\n    \"time_labels\": \"<boolean>\",\n    \"total_rows\": \"<boolean>\"\n  },\n  \"pagination\": {\n    \"limit\": \"<integer>\",\n    \"offset\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3d088539-a43a-4548-b602-6d34c439a973",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"site_id\": \"example.com\",\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_range\": \"<string>\",\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"order_by\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"include\": {\n    \"imports\": \"<boolean>\",\n    \"time_labels\": \"<boolean>\",\n    \"total_rows\": \"<boolean>\"\n  },\n  \"pagination\": {\n    \"limit\": \"<integer>\",\n    \"offset\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://plausible.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d193a800-e834-41dd-b310-7ca0fa81fca6",
+    "name": "Plausible Stats API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Plausible Stats API provides programmatic access to website analytics data, including aggregate metrics, time-series data, and breakdowns by various dimensions such as pages, sources, countries, devices, and browsers.\n\nContact Support:\n Name: Plausible Support",
+      "type": "text/plain"
+    }
+  }
+}

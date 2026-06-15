@@ -1,0 +1,211 @@
+{
+  "item": [
+    {
+      "id": "4cb3f93b-5e7d-4034-a677-4a687141e039",
+      "name": "Events",
+      "description": {
+        "content": "Submit pageviews and custom events.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6b08e071-33f8-46e3-b077-cea7871c009a",
+          "name": "Record a pageview or custom event",
+          "request": {
+            "name": "Record a pageview or custom event",
+            "description": {
+              "content": "Sends a pageview or a custom event to Plausible. The User-Agent and client IP are used to compute a privacy-preserving visitor identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "event"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Used to derive the visitor identifier.",
+                "key": "User-Agent",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Client IP address; defaults to the sender's remote IP.",
+                "key": "X-Forwarded-For",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "When true, returns the IP used for visitor counting.",
+                "key": "X-Debug-Request",
+                "value": "<boolean>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"domain\": \"<string>\",\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"referrer\": \"<string>\",\n  \"props\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"revenue\": {\n    \"currency\": \"<string>\",\n    \"amount\": \"<number>\"\n  },\n  \"interactive\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4e3e37d0-927e-4fad-81ac-e48cd85c3bb3",
+              "name": "Event accepted (always returned, even if dropped).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "event"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Used to derive the visitor identifier.",
+                    "key": "User-Agent",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Client IP address; defaults to the sender's remote IP.",
+                    "key": "X-Forwarded-For",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When true, returns the IP used for visitor counting.",
+                    "key": "X-Debug-Request",
+                    "value": "<boolean>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domain\": \"<string>\",\n  \"name\": \"pageview\",\n  \"url\": \"<string>\",\n  \"referrer\": \"<string>\",\n  \"props\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"revenue\": {\n    \"currency\": \"USD\",\n    \"amount\": 19.99\n  },\n  \"interactive\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e0308ed3-660d-4434-ba02-a4ce50c347aa",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "event"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Used to derive the visitor identifier.",
+                    "key": "User-Agent",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Client IP address; defaults to the sender's remote IP.",
+                    "key": "X-Forwarded-For",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When true, returns the IP used for visitor counting.",
+                    "key": "X-Debug-Request",
+                    "value": "<boolean>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domain\": \"<string>\",\n  \"name\": \"pageview\",\n  \"url\": \"<string>\",\n  \"referrer\": \"<string>\",\n  \"props\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"revenue\": {\n    \"currency\": \"USD\",\n    \"amount\": 19.99\n  },\n  \"interactive\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://plausible.io",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "3d011b6c-6b6c-4b4a-b666-05cc8c177da5",
+    "name": "Plausible Events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Plausible Events API allows server-side and non-browser clients to send pageviews and custom events to Plausible.\n\nContact Support:\n Name: Plausible Support",
+      "type": "text/plain"
+    }
+  }
+}
