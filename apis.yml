@@ -95,7 +95,7 @@ common:
     url: https://github.com/plausible/analytics
   - type: Login
     url: https://plausible.io/login
-  - type: SignUp
+  - type: Signup
     url: https://plausible.io/register
   - type: Support
     url: https://plausible.io/contact
