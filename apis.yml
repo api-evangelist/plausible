@@ -77,6 +77,10 @@ apis:
       - type: OpenAPI
         url: https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/openapi/plausible-sites-openapi.yml
 common:
+  - type: DomainSecurity
+    url: security/plausible-domain-security.yml
+  - type: Authentication
+    url: authentication/plausible-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/plausible-analytics
   - type: Website
