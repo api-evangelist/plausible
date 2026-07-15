@@ -77,6 +77,8 @@ apis:
       - type: OpenAPI
         url: https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/openapi/plausible-sites-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/plausible-agentic-access.yml
   - type: DomainSecurity
     url: security/plausible-domain-security.yml
   - type: Authentication
