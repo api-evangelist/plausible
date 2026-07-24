@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  title: Plausible Events CustomProps SharedLinks API
+  description: The Plausible Events API allows server-side and non-browser clients to send pageviews and custom events to Plausible.
+  version: 1.0.0
+  contact:
+    name: Plausible Support
+    url: https://plausible.io/contact
+  license:
+    name: AGPL-3.0
+    url: https://github.com/plausible/analytics/blob/master/LICENSE.md
+servers:
+- url: https://plausible.io
+  description: Plausible Cloud
+tags:
+- name: SharedLinks
+paths:
+  /api/v1/sites/shared-links:
+    put:
+      tags:
+      - SharedLinks
+      summary: Create or find shared link
+      operationId: upsertSharedLink
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SharedLink'
+      responses:
+        '200':
+          description: Created or returned.
+components:
+  schemas:
+    SharedLink:
+      type: object
+      properties:
+        site_id:
+          type: string
+        name:
+          type: string
+        password:
+          type: string

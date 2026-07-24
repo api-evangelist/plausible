@@ -1,0 +1,135 @@
+openapi: 3.0.3
+info:
+  title: Plausible Events CustomProps Sites API
+  description: The Plausible Events API allows server-side and non-browser clients to send pageviews and custom events to Plausible.
+  version: 1.0.0
+  contact:
+    name: Plausible Support
+    url: https://plausible.io/contact
+  license:
+    name: AGPL-3.0
+    url: https://github.com/plausible/analytics/blob/master/LICENSE.md
+servers:
+- url: https://plausible.io
+  description: Plausible Cloud
+tags:
+- name: Sites
+paths:
+  /api/v1/sites:
+    get:
+      tags:
+      - Sites
+      summary: List sites
+      operationId: listSites
+      parameters:
+      - $ref: '#/components/parameters/After'
+      - $ref: '#/components/parameters/Before'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A page of sites.
+    post:
+      tags:
+      - Sites
+      summary: Create site
+      operationId: createSite
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteCreate'
+      responses:
+        '200':
+          description: Site created.
+  /api/v1/sites/{site_id}:
+    parameters:
+    - $ref: '#/components/parameters/SiteId'
+    get:
+      tags:
+      - Sites
+      summary: Get site
+      operationId: getSite
+      responses:
+        '200':
+          description: Site details.
+    put:
+      tags:
+      - Sites
+      summary: Update site
+      operationId: updateSite
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteUpdate'
+      responses:
+        '200':
+          description: Site updated.
+    delete:
+      tags:
+      - Sites
+      summary: Delete site
+      operationId: deleteSite
+      responses:
+        '200':
+          description: Site deleted.
+components:
+  parameters:
+    Limit:
+      in: query
+      name: limit
+      schema:
+        type: integer
+    Before:
+      in: query
+      name: before
+      schema:
+        type: string
+    After:
+      in: query
+      name: after
+      schema:
+        type: string
+    SiteId:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        type: string
+  schemas:
+    TrackerConfig:
+      type: object
+      properties:
+        outbound_links:
+          type: boolean
+        file_downloads:
+          type: boolean
+        form_submissions:
+          type: boolean
+        track_404_pages:
+          type: boolean
+        revenue_tracking:
+          type: boolean
+        hash_based_routing:
+          type: boolean
+    SiteUpdate:
+      type: object
+      properties:
+        domain:
+          type: string
+        tracker_script_configuration:
+          $ref: '#/components/schemas/TrackerConfig'
+    SiteCreate:
+      type: object
+      required:
+      - domain
+      properties:
+        domain:
+          type: string
+        timezone:
+          type: string
+          example: Etc/UTC
+        tracker_script_configuration:
+          $ref: '#/components/schemas/TrackerConfig'

@@ -1,0 +1,64 @@
+openapi: 3.0.3
+info:
+  title: Plausible Events CustomProps API
+  description: The Plausible Events API allows server-side and non-browser clients to send pageviews and custom events to Plausible.
+  version: 1.0.0
+  contact:
+    name: Plausible Support
+    url: https://plausible.io/contact
+  license:
+    name: AGPL-3.0
+    url: https://github.com/plausible/analytics/blob/master/LICENSE.md
+servers:
+- url: https://plausible.io
+  description: Plausible Cloud
+tags:
+- name: CustomProps
+paths:
+  /api/v1/sites/custom-props:
+    get:
+      tags:
+      - CustomProps
+      summary: List custom properties
+      operationId: listCustomProps
+      responses:
+        '200':
+          description: A list of custom properties.
+    put:
+      tags:
+      - CustomProps
+      summary: Create custom property
+      operationId: createCustomProp
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomProp'
+      responses:
+        '200':
+          description: Created.
+  /api/v1/sites/custom-props/{property}:
+    parameters:
+    - in: path
+      name: property
+      required: true
+      schema:
+        type: string
+    delete:
+      tags:
+      - CustomProps
+      summary: Delete custom property
+      operationId: deleteCustomProp
+      responses:
+        '200':
+          description: Deleted.
+components:
+  schemas:
+    CustomProp:
+      type: object
+      properties:
+        site_id:
+          type: string
+        custom_prop:
+          type: string

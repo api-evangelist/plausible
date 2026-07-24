@@ -1,9 +1,7 @@
 openapi: 3.0.3
 info:
-  title: Plausible Events API
-  description: >-
-    The Plausible Events API allows server-side and non-browser clients to send
-    pageviews and custom events to Plausible.
+  title: Plausible CustomProps Events API
+  description: The Plausible Events API allows server-side and non-browser clients to send pageviews and custom events to Plausible.
   version: 1.0.0
   contact:
     name: Plausible Support
@@ -12,40 +10,38 @@ info:
     name: AGPL-3.0
     url: https://github.com/plausible/analytics/blob/master/LICENSE.md
 servers:
-  - url: https://plausible.io
-    description: Plausible Cloud
+- url: https://plausible.io
+  description: Plausible Cloud
 tags:
-  - name: Events
-    description: Submit pageviews and custom events.
+- name: Events
+  description: Submit pageviews and custom events.
 paths:
   /api/event:
     post:
       tags:
-        - Events
+      - Events
       summary: Record a pageview or custom event
-      description: >-
-        Sends a pageview or a custom event to Plausible. The User-Agent and
-        client IP are used to compute a privacy-preserving visitor identifier.
+      description: Sends a pageview or a custom event to Plausible. The User-Agent and client IP are used to compute a privacy-preserving visitor identifier.
       operationId: recordEvent
       parameters:
-        - in: header
-          name: User-Agent
-          required: true
-          schema:
-            type: string
-          description: Used to derive the visitor identifier.
-        - in: header
-          name: X-Forwarded-For
-          required: false
-          schema:
-            type: string
-          description: Client IP address; defaults to the sender's remote IP.
-        - in: header
-          name: X-Debug-Request
-          required: false
-          schema:
-            type: boolean
-          description: When true, returns the IP used for visitor counting.
+      - in: header
+        name: User-Agent
+        required: true
+        schema:
+          type: string
+        description: Used to derive the visitor identifier.
+      - in: header
+        name: X-Forwarded-For
+        required: false
+        schema:
+          type: string
+        description: Client IP address; defaults to the sender's remote IP.
+      - in: header
+        name: X-Debug-Request
+        required: false
+        schema:
+          type: boolean
+        description: When true, returns the IP used for visitor counting.
       requestBody:
         required: true
         content:
@@ -62,9 +58,9 @@ components:
     EventRequest:
       type: object
       required:
-        - domain
-        - name
-        - url
+      - domain
+      - name
+      - url
       properties:
         domain:
           type: string
@@ -83,9 +79,9 @@ components:
           type: object
           additionalProperties:
             oneOf:
-              - type: string
-              - type: number
-              - type: boolean
+            - type: string
+            - type: number
+            - type: boolean
           description: Custom properties (max 30 key/value pairs).
         revenue:
           type: object

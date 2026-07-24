@@ -1,0 +1,26 @@
+openapi: 3.0.3
+info:
+  title: Plausible Events CustomProps Teams API
+  description: The Plausible Events API allows server-side and non-browser clients to send pageviews and custom events to Plausible.
+  version: 1.0.0
+  contact:
+    name: Plausible Support
+    url: https://plausible.io/contact
+  license:
+    name: AGPL-3.0
+    url: https://github.com/plausible/analytics/blob/master/LICENSE.md
+servers:
+- url: https://plausible.io
+  description: Plausible Cloud
+tags:
+- name: Teams
+paths:
+  /api/v1/sites/teams:
+    get:
+      tags:
+      - Teams
+      summary: List teams
+      operationId: listTeams
+      responses:
+        '200':
+          description: Teams accessible to the API key.

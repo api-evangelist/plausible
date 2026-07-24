@@ -1,0 +1,69 @@
+openapi: 3.0.3
+info:
+  title: Plausible Events CustomProps Guests API
+  description: The Plausible Events API allows server-side and non-browser clients to send pageviews and custom events to Plausible.
+  version: 1.0.0
+  contact:
+    name: Plausible Support
+    url: https://plausible.io/contact
+  license:
+    name: AGPL-3.0
+    url: https://github.com/plausible/analytics/blob/master/LICENSE.md
+servers:
+- url: https://plausible.io
+  description: Plausible Cloud
+tags:
+- name: Guests
+paths:
+  /api/v1/sites/guests:
+    get:
+      tags:
+      - Guests
+      summary: List guests/invitations
+      operationId: listGuests
+      responses:
+        '200':
+          description: A list of guests.
+    put:
+      tags:
+      - Guests
+      summary: Invite or manage guest access
+      operationId: upsertGuest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Guest'
+      responses:
+        '200':
+          description: Created or updated.
+  /api/v1/sites/guests/{email}:
+    parameters:
+    - in: path
+      name: email
+      required: true
+      schema:
+        type: string
+    delete:
+      tags:
+      - Guests
+      summary: Remove guest or invitation
+      operationId: deleteGuest
+      responses:
+        '200':
+          description: Removed.
+components:
+  schemas:
+    Guest:
+      type: object
+      properties:
+        site_id:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum:
+          - viewer
+          - editor

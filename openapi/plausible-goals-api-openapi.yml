@@ -1,0 +1,71 @@
+openapi: 3.0.3
+info:
+  title: Plausible Events CustomProps Goals API
+  description: The Plausible Events API allows server-side and non-browser clients to send pageviews and custom events to Plausible.
+  version: 1.0.0
+  contact:
+    name: Plausible Support
+    url: https://plausible.io/contact
+  license:
+    name: AGPL-3.0
+    url: https://github.com/plausible/analytics/blob/master/LICENSE.md
+servers:
+- url: https://plausible.io
+  description: Plausible Cloud
+tags:
+- name: Goals
+paths:
+  /api/v1/sites/goals:
+    get:
+      tags:
+      - Goals
+      summary: List goals
+      operationId: listGoals
+      responses:
+        '200':
+          description: A list of goals.
+    put:
+      tags:
+      - Goals
+      summary: Create or find a goal
+      operationId: upsertGoal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Goal'
+      responses:
+        '200':
+          description: Goal created or found.
+  /api/v1/sites/goals/{goal_id}:
+    parameters:
+    - in: path
+      name: goal_id
+      required: true
+      schema:
+        type: string
+    delete:
+      tags:
+      - Goals
+      summary: Delete goal
+      operationId: deleteGoal
+      responses:
+        '200':
+          description: Goal deleted.
+components:
+  schemas:
+    Goal:
+      type: object
+      properties:
+        site_id:
+          type: string
+        goal_type:
+          type: string
+          enum:
+          - event
+          - page
+        event_name:
+          type: string
+        page_path:
+          type: string

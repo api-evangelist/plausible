@@ -1,12 +1,8 @@
 openapi: 3.0.3
 info:
-  title: Plausible Stats API
-  description: >-
-    The Plausible Stats API provides programmatic access to website analytics
-    data, including aggregate metrics, time-series data, and breakdowns by
-    various dimensions such as pages, sources, countries, devices, and
-    browsers.
-  version: 2.0.0
+  title: Plausible Events CustomProps Query API
+  description: The Plausible Events API allows server-side and non-browser clients to send pageviews and custom events to Plausible.
+  version: 1.0.0
   contact:
     name: Plausible Support
     url: https://plausible.io/contact
@@ -14,22 +10,18 @@ info:
     name: AGPL-3.0
     url: https://github.com/plausible/analytics/blob/master/LICENSE.md
 servers:
-  - url: https://plausible.io
-    description: Plausible Cloud
-security:
-  - bearerAuth: []
+- url: https://plausible.io
+  description: Plausible Cloud
 tags:
-  - name: Query
-    description: Run analytics queries against site data.
+- name: Query
+  description: Run analytics queries against site data.
 paths:
   /api/v2/query:
     post:
       tags:
-        - Query
+      - Query
       summary: Run a query against site analytics data
-      description: >-
-        Execute a query against a Plausible site to retrieve metrics with
-        optional dimensions, filters, ordering, and pagination.
+      description: Execute a query against a Plausible site to retrieve metrics with optional dimensions, filters, ordering, and pagination.
       operationId: runQuery
       requestBody:
         required: true
@@ -51,18 +43,13 @@ paths:
         '429':
           description: Rate limit exceeded
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: API Key
   schemas:
     QueryRequest:
       type: object
       required:
-        - site_id
-        - metrics
-        - date_range
+      - site_id
+      - metrics
+      - date_range
       properties:
         site_id:
           type: string
@@ -73,29 +60,39 @@ components:
           items:
             type: string
             enum:
-              - visitors
-              - visits
-              - pageviews
-              - views_per_visit
-              - bounce_rate
-              - visit_duration
-              - events
-              - scroll_depth
-              - percentage
-              - conversion_rate
-              - group_conversion_rate
-              - average_revenue
-              - total_revenue
+            - visitors
+            - visits
+            - pageviews
+            - views_per_visit
+            - bounce_rate
+            - visit_duration
+            - events
+            - scroll_depth
+            - percentage
+            - conversion_rate
+            - group_conversion_rate
+            - average_revenue
+            - total_revenue
         date_range:
           oneOf:
-            - type: string
-              enum: [day, 7d, 28d, 30d, 91d, month, 6mo, 12mo, year, all]
-            - type: array
-              items:
-                type: string
-                format: date-time
-              minItems: 2
-              maxItems: 2
+          - type: string
+            enum:
+            - day
+            - 7d
+            - 28d
+            - 30d
+            - 91d
+            - month
+            - 6mo
+            - 12mo
+            - year
+            - all
+          - type: array
+            items:
+              type: string
+              format: date-time
+            minItems: 2
+            maxItems: 2
         dimensions:
           type: array
           items:
