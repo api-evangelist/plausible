@@ -6,7 +6,20 @@ description: >-
   compliant with GDPR, CCPA, and other privacy regulations out of the box. It can be self-hosted or used as a cloud
   service.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/plausible.png
 tags:
   - Analytics
   - Cookie-Free
@@ -19,63 +32,134 @@ created: '2026-03-26'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: plausible:stats-api
-    name: Plausible Stats API
-    description: >-
-      The Plausible Stats API provides programmatic access to website analytics data including aggregate metrics,
-      time-series data, and breakdowns by various dimensions such as pages, sources, countries, devices, and browsers.
-      It enables developers to retrieve visitor counts, pageviews, bounce rates, visit durations, and custom event data
-      for building external dashboards and integrating analytics into other applications.
-    humanURL: https://plausible.io/docs/stats-api
-    baseURL: https://plausible.io/api/v2
-    tags:
-      - Analytics
-      - Metrics
-      - Reporting
-      - Statistics
-    properties:
-      - type: Documentation
-        url: https://plausible.io/docs/stats-api
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/openapi/plausible-stats-openapi.yml
-  - aid: plausible:events-api
-    name: Plausible Events API
-    description: >-
-      The Plausible Events API allows developers to send pageview and custom events to Plausible from server-side
-      applications, mobile apps, or any environment where the standard JavaScript snippet cannot be used. It supports
-      recording pageviews, custom events with properties, and revenue tracking data while maintaining Plausible's
-      privacy-first approach.
-    humanURL: https://plausible.io/docs/events-api
-    baseURL: https://plausible.io/api
-    tags:
-      - Analytics
-      - Events
-      - Pageviews
-      - Tracking
-    properties:
-      - type: Documentation
-        url: https://plausible.io/docs/events-api
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/openapi/plausible-events-openapi.yml
-  - aid: plausible:sites-api
-    name: Plausible Sites API
-    description: >-
-      The Plausible Sites API enables developers to programmatically manage sites within their Plausible account. It
-      supports creating new sites, deleting existing sites, retrieving site information, and managing shared links and
-      goals. This API is useful for agencies and platforms that need to automate site provisioning and configuration.
-    humanURL: https://plausible.io/docs/sites-api
-    baseURL: https://plausible.io/api/v1/sites
-    tags:
-      - Analytics
-      - Management
-      - Provisioning
-      - Sites
-    properties:
-      - type: Documentation
-        url: https://plausible.io/docs/sites-api
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/openapi/plausible-sites-openapi.yml
+- aid: plausible:plausible-customprops-api
+  name: Plausible CustomProps API
+  description: The CustomProps API from Plausible — 2 operation(s) for customprops.
+  humanURL: https://plausible.io/docs/stats-api
+  baseURL: https://plausible.io/api/v2
+  tags:
+  - CustomProps
+  properties:
+  - type: OpenAPI
+    url: openapi/plausible-customprops-api-openapi.yml
+  - type: Documentation
+    url: https://plausible.io/docs/stats-api
+  - type: Documentation
+    url: https://plausible.io/docs/events-api
+  - type: Documentation
+    url: https://plausible.io/docs/sites-api
+- aid: plausible:plausible-events-api
+  name: Plausible Events API
+  description: Submit pageviews and custom events.
+  humanURL: https://plausible.io/docs/stats-api
+  baseURL: https://plausible.io/api/v2
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/plausible-events-api-openapi.yml
+  - type: Documentation
+    url: https://plausible.io/docs/stats-api
+  - type: Documentation
+    url: https://plausible.io/docs/events-api
+  - type: Documentation
+    url: https://plausible.io/docs/sites-api
+- aid: plausible:plausible-goals-api
+  name: Plausible Goals API
+  description: The Goals API from Plausible — 2 operation(s) for goals.
+  humanURL: https://plausible.io/docs/stats-api
+  baseURL: https://plausible.io/api/v2
+  tags:
+  - Goals
+  properties:
+  - type: OpenAPI
+    url: openapi/plausible-goals-api-openapi.yml
+  - type: Documentation
+    url: https://plausible.io/docs/stats-api
+  - type: Documentation
+    url: https://plausible.io/docs/events-api
+  - type: Documentation
+    url: https://plausible.io/docs/sites-api
+- aid: plausible:plausible-guests-api
+  name: Plausible Guests API
+  description: The Guests API from Plausible — 2 operation(s) for guests.
+  humanURL: https://plausible.io/docs/stats-api
+  baseURL: https://plausible.io/api/v2
+  tags:
+  - Guests
+  properties:
+  - type: OpenAPI
+    url: openapi/plausible-guests-api-openapi.yml
+  - type: Documentation
+    url: https://plausible.io/docs/stats-api
+  - type: Documentation
+    url: https://plausible.io/docs/events-api
+  - type: Documentation
+    url: https://plausible.io/docs/sites-api
+- aid: plausible:plausible-query-api
+  name: Plausible Query API
+  description: Run analytics queries against site data.
+  humanURL: https://plausible.io/docs/stats-api
+  baseURL: https://plausible.io/api/v2
+  tags:
+  - Query
+  properties:
+  - type: OpenAPI
+    url: openapi/plausible-query-api-openapi.yml
+  - type: Documentation
+    url: https://plausible.io/docs/stats-api
+  - type: Documentation
+    url: https://plausible.io/docs/events-api
+  - type: Documentation
+    url: https://plausible.io/docs/sites-api
+- aid: plausible:plausible-sharedlinks-api
+  name: Plausible SharedLinks API
+  description: The SharedLinks API from Plausible — 1 operation(s) for sharedlinks.
+  humanURL: https://plausible.io/docs/stats-api
+  baseURL: https://plausible.io/api/v2
+  tags:
+  - SharedLinks
+  properties:
+  - type: OpenAPI
+    url: openapi/plausible-sharedlinks-api-openapi.yml
+  - type: Documentation
+    url: https://plausible.io/docs/stats-api
+  - type: Documentation
+    url: https://plausible.io/docs/events-api
+  - type: Documentation
+    url: https://plausible.io/docs/sites-api
+- aid: plausible:plausible-sites-api
+  name: Plausible Sites API
+  description: The Sites API from Plausible — 2 operation(s) for sites.
+  humanURL: https://plausible.io/docs/stats-api
+  baseURL: https://plausible.io/api/v2
+  tags:
+  - Sites
+  properties:
+  - type: OpenAPI
+    url: openapi/plausible-sites-api-openapi.yml
+  - type: Documentation
+    url: https://plausible.io/docs/stats-api
+  - type: Documentation
+    url: https://plausible.io/docs/events-api
+  - type: Documentation
+    url: https://plausible.io/docs/sites-api
+- aid: plausible:plausible-teams-api
+  name: Plausible Teams API
+  description: The Teams API from Plausible — 1 operation(s) for teams.
+  humanURL: https://plausible.io/docs/stats-api
+  baseURL: https://plausible.io/api/v2
+  tags:
+  - Teams
+  properties:
+  - type: OpenAPI
+    url: openapi/plausible-teams-api-openapi.yml
+  - type: Documentation
+    url: https://plausible.io/docs/stats-api
+  - type: Documentation
+    url: https://plausible.io/docs/events-api
+  - type: Documentation
+    url: https://plausible.io/docs/sites-api
 common:
   - type: AgenticAccess
     url: agentic-access/plausible-agentic-access.yml
