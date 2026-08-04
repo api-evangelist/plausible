@@ -1,0 +1,101 @@
+openapi: 3.0.3
+info:
+  title: Plausible Events API
+  description: >-
+    The Plausible Events API allows server-side and non-browser clients to send
+    pageviews and custom events to Plausible.
+  version: 1.0.0
+  contact:
+    name: Plausible Support
+    url: https://plausible.io/contact
+  license:
+    name: AGPL-3.0
+    url: https://github.com/plausible/analytics/blob/master/LICENSE.md
+servers:
+  - url: https://plausible.io
+    description: Plausible Cloud
+tags:
+  - name: Events
+    description: Submit pageviews and custom events.
+paths:
+  /api/event:
+    post:
+      tags:
+        - Events
+      summary: Record a pageview or custom event
+      description: >-
+        Sends a pageview or a custom event to Plausible. The User-Agent and
+        client IP are used to compute a privacy-preserving visitor identifier.
+      operationId: recordEvent
+      parameters:
+        - in: header
+          name: User-Agent
+          required: true
+          schema:
+            type: string
+          description: Used to derive the visitor identifier.
+        - in: header
+          name: X-Forwarded-For
+          required: false
+          schema:
+            type: string
+          description: Client IP address; defaults to the sender's remote IP.
+        - in: header
+          name: X-Debug-Request
+          required: false
+          schema:
+            type: boolean
+          description: When true, returns the IP used for visitor counting.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventRequest'
+      responses:
+        '202':
+          description: Event accepted (always returned, even if dropped).
+        '400':
+          description: Bad request.
+components:
+  schemas:
+    EventRequest:
+      type: object
+      required:
+        - domain
+        - name
+        - url
+      properties:
+        domain:
+          type: string
+          description: The site's domain registered in Plausible.
+        name:
+          type: string
+          description: Event name. Use "pageview" for pageviews; any other value is a custom event.
+          example: pageview
+        url:
+          type: string
+          description: URL of the page where the event was triggered.
+        referrer:
+          type: string
+          description: The referrer URL.
+        props:
+          type: object
+          additionalProperties:
+            oneOf:
+              - type: string
+              - type: number
+              - type: boolean
+          description: Custom properties (max 30 key/value pairs).
+        revenue:
+          type: object
+          properties:
+            currency:
+              type: string
+              example: USD
+            amount:
+              type: number
+              example: 19.99
+        interactive:
+          type: boolean
+          description: Indicates whether the event affects bounce rate.

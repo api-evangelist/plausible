@@ -1,0 +1,146 @@
+openapi: 3.0.3
+info:
+  title: Plausible Stats API
+  description: >-
+    The Plausible Stats API provides programmatic access to website analytics
+    data, including aggregate metrics, time-series data, and breakdowns by
+    various dimensions such as pages, sources, countries, devices, and
+    browsers.
+  version: 2.0.0
+  contact:
+    name: Plausible Support
+    url: https://plausible.io/contact
+  license:
+    name: AGPL-3.0
+    url: https://github.com/plausible/analytics/blob/master/LICENSE.md
+servers:
+  - url: https://plausible.io
+    description: Plausible Cloud
+security:
+  - bearerAuth: []
+tags:
+  - name: Query
+    description: Run analytics queries against site data.
+paths:
+  /api/v2/query:
+    post:
+      tags:
+        - Query
+      summary: Run a query against site analytics data
+      description: >-
+        Execute a query against a Plausible site to retrieve metrics with
+        optional dimensions, filters, ordering, and pagination.
+      operationId: runQuery
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: Query result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Rate limit exceeded
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+  schemas:
+    QueryRequest:
+      type: object
+      required:
+        - site_id
+        - metrics
+        - date_range
+      properties:
+        site_id:
+          type: string
+          description: The domain registered in Plausible.
+          example: example.com
+        metrics:
+          type: array
+          items:
+            type: string
+            enum:
+              - visitors
+              - visits
+              - pageviews
+              - views_per_visit
+              - bounce_rate
+              - visit_duration
+              - events
+              - scroll_depth
+              - percentage
+              - conversion_rate
+              - group_conversion_rate
+              - average_revenue
+              - total_revenue
+        date_range:
+          oneOf:
+            - type: string
+              enum: [day, 7d, 28d, 30d, 91d, month, 6mo, 12mo, year, all]
+            - type: array
+              items:
+                type: string
+                format: date-time
+              minItems: 2
+              maxItems: 2
+        dimensions:
+          type: array
+          items:
+            type: string
+        filters:
+          type: array
+          items:
+            type: array
+        order_by:
+          type: array
+          items:
+            type: array
+        include:
+          type: object
+          properties:
+            imports:
+              type: boolean
+            time_labels:
+              type: boolean
+            total_rows:
+              type: boolean
+        pagination:
+          type: object
+          properties:
+            limit:
+              type: integer
+            offset:
+              type: integer
+    QueryResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              metrics:
+                type: array
+                items:
+                  type: number
+              dimensions:
+                type: array
+                items:
+                  type: string
+        meta:
+          type: object
+        query:
+          type: object

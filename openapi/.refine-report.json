@@ -1,0 +1,28 @@
+{
+  "provider": "plausible",
+  "sources": [
+    "plausible-customprops-api-openapi.yml",
+    "plausible-events-api-openapi.yml",
+    "plausible-goals-api-openapi.yml",
+    "plausible-guests-api-openapi.yml",
+    "plausible-query-api-openapi.yml",
+    "plausible-sharedlinks-api-openapi.yml",
+    "plausible-sites-api-openapi.yml",
+    "plausible-teams-api-openapi.yml"
+  ],
+  "outputs": [
+    "plausible-customprops-api-openapi.yml",
+    "plausible-events-api-openapi.yml",
+    "plausible-goals-api-openapi.yml",
+    "plausible-guests-api-openapi.yml",
+    "plausible-query-api-openapi.yml",
+    "plausible-sharedlinks-api-openapi.yml",
+    "plausible-sites-api-openapi.yml",
+    "plausible-teams-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
