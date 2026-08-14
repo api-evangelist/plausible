@@ -23,25 +23,33 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/plausible.
 tags:
   - Analytics
   - Cookie-Free
+  - Event Tracking
   - GDPR
+  - Goal Conversions
   - Open Source
   - Privacy
+  - Self-Hosted
+  - Site Management
   - Web Analytics
 url: https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/apis.yml
 created: '2026-03-26'
-modified: '2026-05-19'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
 - aid: plausible:plausible-customprops-api
   name: Plausible CustomProps API
   description: The CustomProps API from Plausible — 2 operation(s) for customprops.
-  humanURL: https://plausible.io/docs/stats-api
-  baseURL: https://plausible.io/api/v2
+  humanURL: https://plausible.io/docs/sites-api
+  baseURL: https://plausible.io/api/v1
   tags:
   - CustomProps
   properties:
   - type: OpenAPI
     url: openapi/plausible-customprops-api-openapi.yml
+  - type: Overlay
+    url: overlays/plausible-customprops-api-overlay.yaml
+  - type: APIReference
+    url: https://plausible.io/docs/sites-api
   - type: Documentation
     url: https://plausible.io/docs/stats-api
   - type: Documentation
@@ -51,13 +59,17 @@ apis:
 - aid: plausible:plausible-events-api
   name: Plausible Events API
   description: Submit pageviews and custom events.
-  humanURL: https://plausible.io/docs/stats-api
-  baseURL: https://plausible.io/api/v2
+  humanURL: https://plausible.io/docs/events-api
+  baseURL: https://plausible.io/api
   tags:
   - Events
   properties:
   - type: OpenAPI
     url: openapi/plausible-events-api-openapi.yml
+  - type: Overlay
+    url: overlays/plausible-events-api-overlay.yaml
+  - type: APIReference
+    url: https://plausible.io/docs/events-api
   - type: Documentation
     url: https://plausible.io/docs/stats-api
   - type: Documentation
@@ -67,13 +79,17 @@ apis:
 - aid: plausible:plausible-goals-api
   name: Plausible Goals API
   description: The Goals API from Plausible — 2 operation(s) for goals.
-  humanURL: https://plausible.io/docs/stats-api
-  baseURL: https://plausible.io/api/v2
+  humanURL: https://plausible.io/docs/sites-api
+  baseURL: https://plausible.io/api/v1
   tags:
   - Goals
   properties:
   - type: OpenAPI
     url: openapi/plausible-goals-api-openapi.yml
+  - type: Overlay
+    url: overlays/plausible-goals-api-overlay.yaml
+  - type: APIReference
+    url: https://plausible.io/docs/sites-api
   - type: Documentation
     url: https://plausible.io/docs/stats-api
   - type: Documentation
@@ -83,13 +99,17 @@ apis:
 - aid: plausible:plausible-guests-api
   name: Plausible Guests API
   description: The Guests API from Plausible — 2 operation(s) for guests.
-  humanURL: https://plausible.io/docs/stats-api
-  baseURL: https://plausible.io/api/v2
+  humanURL: https://plausible.io/docs/sites-api
+  baseURL: https://plausible.io/api/v1
   tags:
   - Guests
   properties:
   - type: OpenAPI
     url: openapi/plausible-guests-api-openapi.yml
+  - type: Overlay
+    url: overlays/plausible-guests-api-overlay.yaml
+  - type: APIReference
+    url: https://plausible.io/docs/sites-api
   - type: Documentation
     url: https://plausible.io/docs/stats-api
   - type: Documentation
@@ -106,6 +126,10 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/plausible-query-api-openapi.yml
+  - type: Overlay
+    url: overlays/plausible-query-api-overlay.yaml
+  - type: APIReference
+    url: https://plausible.io/docs/stats-api
   - type: Documentation
     url: https://plausible.io/docs/stats-api
   - type: Documentation
@@ -115,13 +139,17 @@ apis:
 - aid: plausible:plausible-sharedlinks-api
   name: Plausible SharedLinks API
   description: The SharedLinks API from Plausible — 1 operation(s) for sharedlinks.
-  humanURL: https://plausible.io/docs/stats-api
-  baseURL: https://plausible.io/api/v2
+  humanURL: https://plausible.io/docs/sites-api
+  baseURL: https://plausible.io/api/v1
   tags:
   - SharedLinks
   properties:
   - type: OpenAPI
     url: openapi/plausible-sharedlinks-api-openapi.yml
+  - type: Overlay
+    url: overlays/plausible-sharedlinks-api-overlay.yaml
+  - type: APIReference
+    url: https://plausible.io/docs/sites-api
   - type: Documentation
     url: https://plausible.io/docs/stats-api
   - type: Documentation
@@ -131,13 +159,17 @@ apis:
 - aid: plausible:plausible-sites-api
   name: Plausible Sites API
   description: The Sites API from Plausible — 2 operation(s) for sites.
-  humanURL: https://plausible.io/docs/stats-api
-  baseURL: https://plausible.io/api/v2
+  humanURL: https://plausible.io/docs/sites-api
+  baseURL: https://plausible.io/api/v1
   tags:
   - Sites
   properties:
   - type: OpenAPI
     url: openapi/plausible-sites-api-openapi.yml
+  - type: Overlay
+    url: overlays/plausible-sites-api-overlay.yaml
+  - type: APIReference
+    url: https://plausible.io/docs/sites-api
   - type: Documentation
     url: https://plausible.io/docs/stats-api
   - type: Documentation
@@ -147,13 +179,17 @@ apis:
 - aid: plausible:plausible-teams-api
   name: Plausible Teams API
   description: The Teams API from Plausible — 1 operation(s) for teams.
-  humanURL: https://plausible.io/docs/stats-api
-  baseURL: https://plausible.io/api/v2
+  humanURL: https://plausible.io/docs/sites-api
+  baseURL: https://plausible.io/api/v1
   tags:
   - Teams
   properties:
   - type: OpenAPI
     url: openapi/plausible-teams-api-openapi.yml
+  - type: Overlay
+    url: overlays/plausible-teams-api-overlay.yaml
+  - type: APIReference
+    url: https://plausible.io/docs/sites-api
   - type: Documentation
     url: https://plausible.io/docs/stats-api
   - type: Documentation
@@ -161,6 +197,70 @@ apis:
   - type: Documentation
     url: https://plausible.io/docs/sites-api
 common:
+  - type: Packages
+    url: packages/plausible-packages.yml
+  - type: SDKs
+    url: packages/plausible-packages.yml
+  - type: ToolCrosswalk
+    url: mcp/plausible-tool-crosswalk.yml
+  - type: LLMsTxt
+    url: llms/plausible-llms.txt
+  - type: Conformance
+    url: conformance/plausible-conformance.yml
+  - type: Compliance
+    url: https://plausible.io/compliance
+  - type: ErrorCatalog
+    url: errors/plausible-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/plausible-lifecycle.yml
+  - type: StatusPage
+    url: https://plausible.io/status
+  - type: Conventions
+    url: conventions/plausible-conventions.yml
+  - type: ChangeLog
+    url: changelog/plausible-changelog.yml
+  - type: Components
+    url: components/plausible-components.yml
+  - type: DataModel
+    url: data-model/plausible-data-model.yml
+  - type: Sandbox
+    url: sandbox/plausible-sandbox.yml
+  - type: VulnerabilityDisclosure
+    url: security/plausible-vulnerability-disclosure.yml
+  - type: Security
+    url: https://plausible.io/vulnerability-disclosure-program
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: Plans
+    url: plans/plausible-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/plausible-rate-limits.yml
+  - type: FinOps
+    url: finops/plausible-finops.yml
+  - type: MCPServer
+    url: mcp/plausible-mcp.yml
+  - type: Roadmap
+    url: https://plausible.io/roadmap
+  - type: GitHubOrganization
+    url: https://github.com/plausible
+  - type: SourceCode
+    url: https://github.com/plausible/analytics
+  - type: APIReference
+    url: https://plausible.io/docs/stats-api
+  - type: DeveloperPortal
+    url: https://plausible.io/docs/data-access
+  - type: Playground
+    url: https://plausible.io/docs/stats-api-playground
+  - type: Demo
+    url: https://plausible.io/plausible.io
+  - type: DataProcessingAgreement
+    url: https://plausible.io/dpa
+  - type: Imprint
+    url: https://plausible.io/imprint
+  - type: Bluesky
+    url: https://bsky.app/profile/plausible.io
+  - type: Mastodon
+    url: https://fosstodon.org/@plausible
   - type: AgenticAccess
     url: agentic-access/plausible-agentic-access.yml
   - type: DomainSecurity
@@ -202,3 +302,28 @@ common:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 27
+  pass: local-v1
+x-coverage:
+  state: covered
+  reason: covered
+  detail: >-
+    Plausible's three APIs are fully public and documented; contract discovery, registry
+    lookups and live API probes all succeeded. The honest absences recorded this pass are
+    the provider's own posture, not a wall we hit: no provider-published OpenAPI, no
+    /.well-known surface, no llms.txt, no agent card, no webhooks/AsyncAPI and no
+    first-party MCP server.
+  evidence:
+    - url: https://plausible.io/docs/stats-api
+      status: 200
+    - url: https://plausible.io/api/v2/query
+      status: 401
+    - url: https://plausible.io/openapi.json
+      status: 404
+    - url: https://plausible.io/.well-known/agent-card.json
+      status: 404
+  checked: '2026-08-13'
