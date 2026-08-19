@@ -1,0 +1,124 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/plausible-sites-api-openapi.yml, openapi/plausible-goals-api-openapi.yml,
+  openapi/plausible-guests-api-openapi.yml, openapi/plausible-customprops-api-openapi.yml,
+  openapi/plausible-sharedlinks-api-openapi.yml, openapi/plausible-teams-api-openapi.yml,
+  openapi/plausible-events-api-openapi.yml, openapi/plausible-query-api-openapi.yml;
+  enriched from https://plausible.io/docs/sites-api and https://plausible.io/docs/events-api
+note: >-
+  Plausible's data model is unusually flat and deliberately identity-free. There is no
+  Customer, User, Visitor or Session entity to relate to, because the product does not
+  store one: the visitor identifier is a daily-rotating hash that is discarded every 24
+  hours. `site_id` is not an opaque key but the site's DOMAIN (for example example.com),
+  which is why it is also the natural join key between the configuration API and the
+  ingest and query surfaces.
+identifiers:
+  - {entity: Site, field: site_id, form: 'the registered domain name, e.g. example.com', opaque: false}
+  - {entity: Site, field: domain, form: 'same value as site_id, named `domain` on the Events API payload and on SiteCreate', opaque: false}
+  - {entity: Goal, field: goal_id, form: 'server-assigned identifier', opaque: true}
+  - {entity: Guest, field: email, form: 'the invitee email address, used as the path segment on delete', opaque: false}
+  - {entity: CustomProperty, field: property, form: 'the property name, used as the path segment on delete', opaque: false}
+entities:
+  - name: Team
+    description: The top-level account container an API key is scoped to.
+    schema: null
+    operations: [listTeams]
+    fields: []
+    note: >-
+      Only listTeams is exposed (GET /api/v1/sites/teams). No team schema is published, so
+      no fields are asserted here.
+  - name: Site
+    description: A registered website. The root of everything else.
+    schema: 'openapi/plausible-sites-api-openapi.yml#/components/schemas/SiteCreate'
+    operations: [listSites, createSite, getSite, updateSite, deleteSite]
+    fields:
+      - {name: domain, type: string, required: true}
+      - {name: timezone, type: string, required: false, note: 'IANA identifier, e.g. Etc/UTC'}
+      - {name: tracker_script_configuration, type: TrackerConfig, required: false}
+  - name: TrackerConfig
+    description: The per-site tracker behaviour block, embedded in Site rather than standalone.
+    schema: 'openapi/plausible-sites-api-openapi.yml#/components/schemas/TrackerConfig'
+    operations: [createSite, updateSite]
+    fields:
+      - {name: outbound_links, type: boolean}
+      - {name: file_downloads, type: boolean}
+      - {name: form_submissions, type: boolean}
+      - {name: track_404_pages, type: boolean}
+      - {name: revenue_tracking, type: boolean}
+      - {name: hash_based_routing, type: boolean}
+  - name: Goal
+    description: A conversion target on a site, defined either by event name or by page path.
+    schema: 'openapi/plausible-goals-api-openapi.yml#/components/schemas/Goal'
+    operations: [listGoals, upsertGoal, deleteGoal]
+    fields:
+      - {name: site_id, type: string}
+      - {name: goal_type, type: string, enum: [event, page]}
+      - {name: event_name, type: string, note: 'used when goal_type is event'}
+      - {name: page_path, type: string, note: 'used when goal_type is page'}
+  - name: CustomProperty
+    description: A property name registered on a site so it can be broken down on in the Stats API.
+    schema: 'openapi/plausible-customprops-api-openapi.yml#/components/schemas/CustomProp'
+    operations: [listCustomProps, createCustomProp, deleteCustomProp]
+    fields:
+      - {name: site_id, type: string}
+      - {name: custom_prop, type: string}
+  - name: Guest
+    description: A person granted scoped access to one site, by email, as viewer or editor.
+    schema: 'openapi/plausible-guests-api-openapi.yml#/components/schemas/Guest'
+    operations: [listGuests, upsertGuest, deleteGuest]
+    fields:
+      - {name: site_id, type: string}
+      - {name: email, type: string}
+      - {name: role, type: string, enum: [viewer, editor]}
+  - name: SharedLink
+    description: A tokenised public URL to a site's dashboard, optionally password protected.
+    schema: 'openapi/plausible-sharedlinks-api-openapi.yml#/components/schemas/SharedLink'
+    operations: [upsertSharedLink]
+    fields:
+      - {name: site_id, type: string}
+      - {name: name, type: string}
+      - {name: password, type: string, note: 'leave blank if the dashboard is to be embedded — see components/plausible-components.yml'}
+  - name: Event
+    description: An ingested pageview or custom event. Write-only; never readable as a record.
+    schema: 'openapi/plausible-events-api-openapi.yml#/components/schemas/EventRequest'
+    operations: [recordEvent]
+    fields:
+      - {name: domain, type: string, required: true, note: 'the Site identifier'}
+      - {name: name, type: string, required: true, note: '"pageview" or a custom event name'}
+      - {name: url, type: string, required: true}
+      - {name: referrer, type: string}
+      - {name: props, type: object, note: 'max 30 key/value pairs; keys should be registered as CustomProperty'}
+      - {name: revenue, type: object, note: 'currency (ISO 4217) + amount'}
+      - {name: interactive, type: boolean, note: 'affects bounce rate'}
+  - name: QueryResult
+    description: The aggregated projection returned by the Stats API. Not a stored entity.
+    schema: 'openapi/plausible-query-api-openapi.yml#/components/schemas/QueryResponse'
+    operations: [runQuery]
+    fields:
+      - {name: results, type: 'array of {metrics[], dimensions[]}'}
+      - {name: meta, type: object, note: 'carries total_rows when include.total_rows is set'}
+      - {name: query, type: object, note: 'echo of the resolved query'}
+relationships:
+  - {from: Team, to: Site, kind: has_many, via: 'account scope of the API key', confidence: medium, note: 'implied by listTeams and listSites both being key-scoped; no explicit team_id field is published on Site'}
+  - {from: Site, to: Goal, kind: has_many, via: site_id}
+  - {from: Site, to: CustomProperty, kind: has_many, via: site_id}
+  - {from: Site, to: Guest, kind: has_many, via: site_id}
+  - {from: Site, to: SharedLink, kind: has_many, via: site_id}
+  - {from: Site, to: TrackerConfig, kind: has_one, via: tracker_script_configuration}
+  - {from: Goal, to: Site, kind: belongs_to, via: site_id}
+  - {from: CustomProperty, to: Site, kind: belongs_to, via: site_id}
+  - {from: Guest, to: Site, kind: belongs_to, via: site_id}
+  - {from: SharedLink, to: Site, kind: belongs_to, via: site_id}
+  - {from: Event, to: Site, kind: belongs_to, via: domain}
+  - {from: Event, to: CustomProperty, kind: has_many, via: 'props keys', confidence: medium, note: 'props keys must be registered as CustomProperty before they are queryable as dimensions'}
+  - {from: Event, to: Goal, kind: has_many, via: 'name matching Goal.event_name, or url matching Goal.page_path', confidence: medium, note: 'the match is evaluated server-side at ingest; no foreign key is carried on the payload'}
+  - {from: QueryResult, to: Site, kind: belongs_to, via: site_id}
+absent_entities:
+  - {name: Visitor, reason: 'never persisted — the visitor identifier is a hash of IP + User-Agent with a salt rotated and deleted every 24 hours (https://plausible.io/security)'}
+  - {name: Session, reason: 'sessions are computed at query time as visit metrics; no session record is exposed'}
+  - {name: User, reason: 'account users are managed in the dashboard; only Guest access is exposed through the API'}
+render: null
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

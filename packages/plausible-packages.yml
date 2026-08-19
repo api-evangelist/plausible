@@ -1,0 +1,131 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  npm registry (registry.npmjs.org), WordPress.org plugin API, hex.pm API,
+  github.com/plausible org listing, and https://plausible.io/docs/plausible-script
+note: >-
+  Plausible ships very few packaged client libraries. Its primary distribution is a
+  CDN-hosted tracker script, not a registry package. The one official npm package,
+  plausible-tracker, has an ARCHIVED source repository and its last release predates
+  the current Stats API v2 surface — recorded below as a structured currency signal,
+  not prose. No first-party Python, Go, Ruby, PHP, Java or .NET client exists; the
+  packages that carry those names on the registries are community projects and are
+  marked official: false.
+packages:
+  - language: javascript
+    registry: npm
+    name: plausible-tracker
+    url: https://www.npmjs.com/package/plausible-tracker
+    install: npm install plausible-tracker
+    official: true
+    version: 0.3.9
+    published: '2024-05-27'
+    repository: https://github.com/plausible/plausible-tracker
+    note: >-
+      Official frontend tracker published by Plausible. The source repository is ARCHIVED
+      on GitHub and the last release (0.3.9, 2024-05-27) predates the plausible.init()
+      configuration model documented at /docs/script-extensions and the Stats API v2
+      surface. Plausible's own docs now point users at the CDN script rather than this
+      package.
+  - language: javascript
+    registry: cdn
+    name: plausible tracker script
+    url: https://plausible.io/js/script.js
+    install: '<script defer data-domain="yourdomain.com" src="https://plausible.io/js/script.js"></script>'
+    official: true
+    version: null
+    published: null
+    note: >-
+      The primary official distribution. Probed 2026-08-13: HTTP 200. The URL is UNPINNED
+      — it always serves the current build, so a consumer cannot tell which version they
+      are running and neither can we. Variant builds also probed 200 on 2026-08-13:
+      /js/script.hash.js, /js/script.manual.js, /js/script.tagged-events.js,
+      /js/script.revenue.js, /js/script.file-downloads.outbound-links.js. No CDN metadata
+      endpoint is served for these paths.
+  - language: javascript
+    registry: cdn
+    name: plausible embed host script
+    url: https://plausible.io/js/embed.host.js
+    install: '<script async src="https://plausible.io/js/embed.host.js"></script>'
+    official: true
+    version: null
+    published: null
+    note: >-
+      Loader for embedded shared-link dashboards (see components/plausible-components.yml).
+      Probed 2026-08-13: HTTP 200. Unpinned URL, no registry or CDN metadata endpoint.
+  - language: php
+    registry: wordpress.org
+    name: plausible-analytics
+    url: https://wordpress.org/plugins/plausible-analytics/
+    install: 'WordPress admin > Plugins > Add New > "Plausible Analytics"'
+    official: true
+    version: 2.6.1
+    published: '2026-08-11'
+    repository: https://github.com/plausible/wordpress
+    note: >-
+      Published by Plausible Insights OÜ on WordPress.org; version and date read from the
+      WordPress.org plugin info API on 2026-08-13. This is the most actively maintained
+      first-party distribution Plausible ships and it is a site-integration plugin, not an
+      API client.
+  - language: other
+    registry: github
+    name: plausible-gtm-template
+    url: https://github.com/plausible/plausible-gtm-template
+    install: 'Import the template into Google Tag Manager (Community Template Gallery)'
+    official: true
+    version: null
+    published: null
+    note: >-
+      Official Google Tag Manager template. Distributed through the GTM Community Template
+      Gallery and the GitHub repo; there is no package registry with a version endpoint to
+      query, so version/published are recorded null rather than guessed.
+  - language: javascript
+    registry: npm
+    name: plausible
+    url: https://www.npmjs.com/package/plausible
+    install: npm install plausible
+    official: false
+    version: 2.2.1
+    published: '2024-10-06'
+    repository: https://github.com/Schotsl/Plausible
+    note: >-
+      Community package (author Schotsl). Occupies the obvious `plausible` name on npm but
+      is not maintained by Plausible Insights OÜ.
+  - language: elixir
+    registry: hex
+    name: plausible
+    url: https://hex.pm/packages/plausible
+    install: '{:plausible, "~> 0.1.1"}'
+    official: false
+    version: 0.1.1
+    published: '2023-09-08'
+    repository: https://github.com/blisscs/plausible
+    note: >-
+      Community package (hex owner `blisscs`, Unlicense). Named `plausible` on Hex despite
+      Plausible itself being an Elixir application; not first-party.
+  - language: python
+    registry: pypi
+    name: plausible
+    url: null
+    install: null
+    official: false
+    version: null
+    published: null
+    note: >-
+      Checked pypi.org/pypi/plausible/json on 2026-08-13 — HTTP 404. No package holds the
+      name and Plausible publishes no official Python client. Community wrappers exist on
+      GitHub only (e.g. ridwanbejo/plausible-py).
+registries_checked:
+  - {registry: npm, result: 'plausible-tracker (official), plausible (community)'}
+  - {registry: pypi, result: '404 on /pypi/plausible/json — no package'}
+  - {registry: hex, result: 'plausible 0.1.1 (community)'}
+  - {registry: wordpress.org, result: 'plausible-analytics 2.6.1 (official)'}
+  - {registry: rubygems, result: no first-party gem found}
+  - {registry: crates.io, result: no first-party crate found}
+  - {registry: packagist, result: no first-party package found}
+  - {registry: nuget, result: no first-party package found}
+  - {registry: maven-central, result: no first-party artifact found}
+  - {registry: pkg.go.dev, result: no first-party module found}
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

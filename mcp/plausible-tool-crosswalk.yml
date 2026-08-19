@@ -1,0 +1,105 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  mcp/plausible-mcp.yml (tool names from https://github.com/getsentry/plausible-mcp,
+  referenced by https://plausible.io/docs/data-access#mcp-server) bound against the
+  operationIds in openapi/*.yml
+note: >-
+  The MCP surface crosswalked here belongs to a COMMUNITY server (built by Sentry) that
+  Plausible's own docs link and explicitly label "not an official Plausible integration".
+  It is crosswalked because it is the tool surface agents actually reach Plausible through,
+  not because Plausible operates it. Every tool below is backed by exactly one Plausible
+  REST operation — runQuery — because the Sentry server is a set of opinionated
+  presets over Stats API v2 rather than a projection of the whole API. That is the finding:
+  the entire Sites API (site, goal, guest, custom-property, shared-link and team
+  management) has NO agent tool at all.
+surfaces:
+  openapi:
+    - openapi/plausible-query-api-openapi.yml
+    - openapi/plausible-events-api-openapi.yml
+    - openapi/plausible-sites-api-openapi.yml
+    - openapi/plausible-goals-api-openapi.yml
+    - openapi/plausible-guests-api-openapi.yml
+    - openapi/plausible-customprops-api-openapi.yml
+    - openapi/plausible-sharedlinks-api-openapi.yml
+    - openapi/plausible-teams-api-openapi.yml
+  graphql: null
+  mcp:
+    url: https://plausible-mcp.sentry.dev/mcp
+    first_party: false
+    gated: true
+    gated_reason: >-
+      tools/list requires Authorization Bearer with a Plausible Stats API key (Business or
+      Enterprise plan), so live inputSchemas were not introspected. Tool names and
+      descriptions come from the published README.
+crosswalk:
+  - tool: get_timeseries
+    category: analytics-read
+    rest: [runQuery]
+    binding: rest
+    confidence: high
+    note: >-
+      Preset over POST /api/v2/query with a time dimension (time:day / time:week /
+      time:month) supplied in `dimensions`. Real input contract is QueryRequest in
+      openapi/plausible-query-api-openapi.yml.
+  - tool: get_breakdown
+    category: analytics-read
+    rest: [runQuery]
+    binding: rest
+    confidence: high
+    note: >-
+      Preset over POST /api/v2/query with a property dimension (event:page, visit:source,
+      visit:country, visit:device, visit:browser, visit:os, visit:utm_*).
+  - tool: get_conversions
+    category: analytics-read
+    rest: [runQuery]
+    binding: rest
+    confidence: high
+    note: >-
+      Preset over POST /api/v2/query selecting conversion metrics (events,
+      conversion_rate, group_conversion_rate) with the event:goal dimension.
+  - tool: compare_periods
+    category: analytics-read
+    rest: [runQuery]
+    binding: rest
+    confidence: medium
+    note: >-
+      Composite: issues two /api/v2/query calls over two date_ranges and computes absolute
+      and percentage deltas server-side. Plausible publishes no single comparison
+      operation, so the delta arithmetic is the tool's own, not the API's.
+mcp_only:
+  - tool: send_feedback
+    reason: >-
+      Server-operations tool for the hosted Sentry deployment. Has no Plausible API
+      counterpart and does not touch Plausible data.
+rest_only:
+  - capability: Event ingestion
+    operations: [recordEvent]
+    note: POST /api/event. No agent tool exposes write-side ingestion.
+  - capability: Site management
+    operations: [listSites, getSite, createSite, updateSite, deleteSite]
+    note: Sites API v1. Enterprise-plan only; no agent tool.
+  - capability: Goal management
+    operations: [listGoals, upsertGoal, deleteGoal]
+    note: No agent tool.
+  - capability: Custom property management
+    operations: [listCustomProps, createCustomProp, deleteCustomProp]
+    note: No agent tool.
+  - capability: Guest / access management
+    operations: [listGuests, upsertGuest, deleteGuest]
+    note: No agent tool.
+  - capability: Shared links
+    operations: [upsertSharedLink]
+    note: No agent tool.
+  - capability: Teams
+    operations: [listTeams]
+    note: No agent tool.
+coverage:
+  tools_named: 5
+  tools_bound: 4
+  mcp_only: 1
+  rest_operations_total: 18
+  rest_operations_with_a_tool: 1
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

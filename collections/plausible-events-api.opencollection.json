@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Plausible CustomProps Events API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Record a pageview or custom event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://plausible.io/api/event",
+            "headers": [
+              {
+                "name": "User-Agent",
+                "value": ""
+              },
+              {
+                "name": "X-Forwarded-For",
+                "value": ""
+              },
+              {
+                "name": "X-Debug-Request",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a pageview or a custom event to Plausible. The User-Agent and client IP are used to compute a privacy-preserving visitor identifier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,51 @@
+generated: '2026-08-13'
+method: probed
+source: live GET probes of https://plausible.io/.well-known/* on 2026-08-13
+host: https://plausible.io
+note: >-
+  Every /.well-known/ path probed returned HTTP 404. Plausible's Phoenix application
+  answers unknown paths with its own styled 404 HTML page, so the bodies are an HTML
+  shell rather than a document — recorded here as a miss, not a hit. NO WellKnown or
+  SecurityTxt pointer is emitted in apis.yml: this file documents an ABSENCE.
+  Plausible does run a vulnerability disclosure program, but it is published as an
+  ordinary web page (https://plausible.io/vulnerability-disclosure-program) and via
+  SECURITY.md in the open source repo, not as an RFC 9116 security.txt.
+documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+also_probed:
+  - {path: /llms.txt, status: 404}
+  - {path: /docs/llms.txt, status: 404}
+  - {path: /openapi.json, status: 404}
+  - {path: /openapi.yaml, status: 404}
+  - {path: /swagger.json, status: 404}
+  - {path: /api/openapi.json, status: 404}
+  - {path: /api/v2/openapi.json, status: 404}
+  - {path: /api-docs, status: 404}
+  - {path: /graphql, status: 404}
+  - {path: /mcp, status: 404}
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

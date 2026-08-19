@@ -1,0 +1,43 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  openapi/*.yml in this repo (every operationId below was verified verbatim against the
+  spec), plus conventions/plausible-conventions.yml, errors/plausible-problem-types.yml and
+  the Plausible documentation at https://plausible.io/docs
+note: >-
+  Plausible publishes no AGENTS.md and no skill files of its own (checked
+  github.com/plausible/analytics tree and the docs index on 2026-08-13). These four are
+  generated from the specs and artifacts in this repo, one per marquee flow, and are
+  grounded in real operationIds — nothing invented.
+skills:
+  - file: plausible-query-site-traffic.md
+    name: Query Plausible site traffic
+    description: >-
+      Run a Stats API v2 query for metrics, breakdowns, time series and filters, and page
+      through large result sets within a 600/hour budget that has no header signal.
+    api: openapi/plausible-query-api-openapi.yml
+    operations: [runQuery]
+  - file: plausible-send-server-side-events.md
+    name: Send server-side events to Plausible
+    description: >-
+      Record pageviews, custom events and revenue from a server, and verify acceptance via
+      x-plausible-dropped instead of trusting the always-202 status.
+    api: openapi/plausible-events-api-openapi.yml
+    operations: [recordEvent]
+  - file: plausible-provision-site.md
+    name: Provision a Plausible site
+    description: >-
+      Create and configure a site end to end — tracker options, conversion goals, and the
+      custom properties that make custom events queryable.
+    api: openapi/plausible-sites-api-openapi.yml
+    operations: [listTeams, listSites, createSite, getSite, updateSite, deleteSite, listGoals, upsertGoal, deleteGoal, listCustomProps, createCustomProp, deleteCustomProp]
+  - file: plausible-share-and-embed-dashboard.md
+    name: Share and embed a Plausible dashboard
+    description: >-
+      Create shared links and guest access, and embed a live dashboard — including the
+      password-vs-embed constraint and the two-step offboarding trap.
+    api: openapi/plausible-sharedlinks-api-openapi.yml
+    operations: [upsertSharedLink, listGuests, upsertGuest, deleteGuest, getSite]
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

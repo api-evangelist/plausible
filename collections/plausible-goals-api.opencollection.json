@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Plausible Events CustomProps Goals API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Goals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List goals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://plausible.io/api/v1/sites/goals"
+          },
+          "docs": "List goals"
+        },
+        {
+          "info": {
+            "name": "Create or find a goal",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://plausible.io/api/v1/sites/goals",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or find a goal"
+        },
+        {
+          "info": {
+            "name": "Delete goal",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://plausible.io/api/v1/sites/goals/:goal_id",
+            "params": [
+              {
+                "name": "goal_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete goal"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

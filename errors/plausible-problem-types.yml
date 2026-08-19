@@ -1,0 +1,83 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/plausible-query-api-openapi.yml, openapi/plausible-events-api-openapi.yml and the
+  sibling refined specs, enriched with live unauthenticated probes of
+  POST https://plausible.io/api/v2/query, GET https://plausible.io/api/v1/sites and
+  POST https://plausible.io/api/event on 2026-08-13
+format: flat-json
+rfc9457: false
+envelope:
+  content_type: application/json; charset=utf-8
+  shape: '{"error": "human-readable message"}'
+  fields:
+    - {name: error, type: string, description: 'A single human-readable message. There is no code, type URI, or field-level detail.'}
+note: >-
+  Plausible does NOT use RFC 9457 problem+json. It returns a one-field JSON object with a
+  prose message, so an agent cannot branch on a stable machine-readable error code and must
+  match on HTTP status plus, at best, message substrings. Plausible publishes no error
+  reference page; the messages below were observed live, not transcribed from docs.
+problems:
+  - status: 400
+    type: null
+    title: Bad request
+    detail: >-
+      Malformed request body or invalid query parameters. Returned by the Stats API when the
+      query document fails validation and by the Events API when the payload is unparseable.
+    source_operation:
+      - openapi/plausible-query-api-openapi.yml#runQuery
+      - openapi/plausible-events-api-openapi.yml#recordEvent
+    remediation: >-
+      Validate site_id, metrics, date_range and dimensions against the Stats API reference
+      before retrying. Retrying an unchanged body will fail identically.
+  - status: 401
+    type: null
+    title: Missing API key
+    observed_body: '{"error":"Missing API key. Please use a valid Plausible API key as a Bearer Token."}'
+    observed_on: '2026-08-13, POST https://plausible.io/api/v2/query and GET https://plausible.io/api/v1/sites'
+    detail: No Authorization header was supplied.
+    source_operation: openapi/plausible-query-api-openapi.yml#runQuery
+    remediation: 'Send Authorization: Bearer YOUR-KEY. Create the key in Account settings > API Keys.'
+  - status: 401
+    type: null
+    title: Invalid API key or site ID
+    observed_body: '{"error":"Invalid API key or site ID. Please make sure you''re using a valid API key with access to the site you''ve requested."}'
+    observed_on: '2026-08-13, POST https://plausible.io/api/v2/query with an invalid bearer token'
+    detail: >-
+      Conflated failure. The same 401 covers a bad key, a valid key on the wrong plan, and a
+      valid key that has no access to the requested site_id — an agent cannot tell which.
+    source_operation: openapi/plausible-query-api-openapi.yml#runQuery
+    remediation: >-
+      Confirm the key type matches the API (Stats API key for /api/v2/query, Sites API key
+      for /api/v1/sites), that the plan includes it, and that the site_id is a domain the
+      key's account owns.
+  - status: 429
+    type: null
+    title: Rate limit exceeded
+    detail: >-
+      The Stats API key exceeded its hourly request budget (600/hour by default). No
+      X-RateLimit-* or Retry-After header accompanies the response, so the remaining budget
+      and the reset instant are both unobservable.
+    source_operation: openapi/plausible-query-api-openapi.yml#runQuery
+    remediation: >-
+      Back off exponentially and retry; the window is rolling. Business and Enterprise
+      customers can request higher capacity by contacting Plausible.
+non_error_statuses:
+  - status: 202
+    title: Event accepted (possibly dropped)
+    detail: >-
+      POST /api/event ALWAYS returns 202 with body "ok", including when the event is
+      discarded by bot or unknown-domain filtering. Observed 2026-08-13 for an unregistered
+      domain: HTTP 202, body "ok", with x-plausible-dropped: 1 in the response headers.
+    signal_header: 'x-plausible-dropped: 1'
+    source_operation: openapi/plausible-events-api-openapi.yml#recordEvent
+    remediation: >-
+      Treat 202 as "received", never as "stored". Inspect x-plausible-dropped, and send
+      X-Debug-Request: true (returns HTTP 200 with the IP used for visitor counting) when
+      diagnosing.
+tracing:
+  header: x-request-id
+  detail: Present on every response observed; quote it when reporting a failure to Plausible support.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

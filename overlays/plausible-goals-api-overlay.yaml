@@ -1,0 +1,54 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Plausible Goals API
+  version: 1.0.0
+x-generated: '2026-08-13'
+x-method: generated
+x-source: openapi/plausible-goals-api-openapi.yml
+x-note: >-
+  Captures API Evangelist enrichment as an Overlay so the harvested OpenAPI in
+  openapi/ is never mutated. Every value below is sourced from an artifact in this
+  repo or from a probed Plausible URL, not invented.
+extends: openapi/plausible-goals-api-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: plausible
+      x-apievangelist-artifacts:
+        authentication: authentication/plausible-authentication.yml
+        conventions: conventions/plausible-conventions.yml
+        errors: errors/plausible-problem-types.yml
+        lifecycle: lifecycle/plausible-lifecycle.yml
+        rate_limits: rate-limits/plausible-rate-limits.yml
+        plans: plans/plausible-plans-pricing.yml
+        data_model: data-model/plausible-data-model.yml
+        conformance: conformance/plausible-conformance.yml
+      x-apievangelist-error-envelope: '{"error": "message"} — flat JSON, not RFC 9457'
+      x-apievangelist-request-id-header: x-request-id
+      x-apievangelist-idempotency: none — no Idempotency-Key contract is published
+  - target: $.components.securitySchemes
+    update:
+      bearerAuth:
+        type: http
+        scheme: bearer
+        bearerFormat: API Key
+        description: >-
+          Plausible API key sent as `Authorization: Bearer YOUR-KEY`. Stats API keys
+          require a Business or Enterprise plan; Sites API keys require Enterprise.
+          Created in Account settings > API Keys. No scopes, no OAuth, no test keys.
+  - target: $
+    update:
+      security:
+        - bearerAuth: []
+  - target: $.paths['/api/v1/sites/goals'].get
+    update:
+      x-apievangelist-operation-id: listGoals
+      x-apievangelist-docs: https://plausible.io/docs/sites-api
+  - target: $.paths['/api/v1/sites/goals'].put
+    update:
+      x-apievangelist-operation-id: upsertGoal
+      x-apievangelist-docs: https://plausible.io/docs/sites-api
+  - target: $.paths['/api/v1/sites/goals/{goal_id}'].delete
+    update:
+      x-apievangelist-operation-id: deleteGoal
+      x-apievangelist-docs: https://plausible.io/docs/sites-api

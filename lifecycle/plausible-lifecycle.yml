@@ -1,0 +1,68 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://plausible.io/docs/stats-api, https://plausible.io/docs/stats-api-v1,
+  https://plausible.io/docs/sites-api, https://plausible.io/changelog,
+  https://plausible.io/status, https://github.com/plausible/analytics/releases and
+  https://raw.githubusercontent.com/plausible/analytics/master/SECURITY.md
+versioning:
+  scheme: uri-path
+  current: v2
+  docs: https://plausible.io/docs/stats-api
+  detail: >-
+    Version is carried in the path and is per-API rather than provider-wide: Stats API is
+    on /api/v2, the Sites API is still on /api/v1, and the ingest endpoint /api/event is
+    unversioned. No version header, no date-pinned version, no release train. The
+    self-hosted Community Edition is released as MAJOR.MINOR container tags on GitHub.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  detail: >-
+    Plausible publishes NO API deprecation policy. Stats API v1 is described on its own
+    docs page as "a legacy feature" with the note "There is a new version of our stats
+    API", but no sunset date, no migration window, and no RFC 8594 Sunset/Deprecation
+    response headers are published or observed. Because there is no policy page, no
+    `Deprecation` pointer is emitted in apis.yml — the label on a single docs page is not a
+    deprecation policy.
+  legacy_surfaces:
+    - surface: Stats API v1
+      docs: https://plausible.io/docs/stats-api-v1
+      status: legacy
+      superseded_by: 'Stats API v2 — https://plausible.io/docs/stats-api'
+      sunset_date: null
+      wording: '"This is a legacy feature." / "There is a new version of our stats API."'
+support_policy:
+  security_updates: >-
+    "We only add security updates to the latest MAJOR.MINOR version of the project. No
+    security updates are backported to previous versions." — SECURITY.md,
+    github.com/plausible/analytics
+  detail: Applies to the self-hosted Community Edition image, not to the hosted cloud service.
+sla:
+  url: null
+  uptime_target: null
+  detail: >-
+    No public SLA or uptime commitment was found. An uptime SLA is referenced only as part
+    of custom Enterprise agreements, which are not published.
+status_page: https://plausible.io/status
+status_page_detail: >-
+  Probed 2026-08-13: HTTP 200. status.plausible.io serves the same page. Public, no login
+  required.
+change_log:
+  - {url: 'https://plausible.io/changelog', kind: product, detail: 'Dated, human-readable product changelog. Most recent entry observed 2026-07-14.'}
+  - {url: 'https://github.com/plausible/analytics/releases', kind: source, detail: 'Tagged releases of the open source application.'}
+roadmap: https://plausible.io/roadmap
+roadmap_detail: >-
+  Redirects to https://feedback.plausible.io/roadmap, a public feedback/roadmap board on
+  Plausible's own subdomain. Probed 2026-08-13: the redirect resolved but the destination
+  answered HTTP 403 behind a Cloudflare interstitial challenge to our automated client.
+  That is a bot wall on our side, not an absence — the page is publicly reachable in a
+  browser.
+deprecated_operations: []
+deprecated_operations_detail: >-
+  No operation in any openapi/ file carries `deprecated: true`. The legacy Stats API v1
+  surface is not represented in this repo's specs.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

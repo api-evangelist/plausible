@@ -1,0 +1,76 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://plausible.io/docs/script-extensions, https://plausible.io/docs/plausible-script,
+  https://plausible.io/docs/embed-dashboard, https://plausible.io/docs/looker-studio,
+  https://plausible.io/wordpress-analytics-plugin, https://plausible.io/gtm-template —
+  read and probed 2026-08-13
+note: >-
+  Plausible's client-side surface is larger than its API surface. The tracker script and the
+  embeddable dashboard are the two things most integrators actually install, and neither is
+  an SDK — they are hosted, loader-based components. Distinct from packages/.
+families:
+  - family: Tracker script
+    description: >-
+      The primary way Plausible is installed. A small (~2.8 KB observed) script tag loaded
+      from plausible.io, configured with data attributes or the plausible.init() object.
+      Cookie-free and does not require a consent banner.
+    loader: https://plausible.io/js/script.js
+    docs: https://plausible.io/docs/plausible-script
+    config_docs: https://plausible.io/docs/script-extensions
+    install: '<script defer data-domain="yourdomain.com" src="https://plausible.io/js/script.js"></script>'
+    config_api: >-
+      plausible.init({ outboundLinks, fileDownloads, formSubmissions, hashBasedRouting,
+      customProperties, autoCapturePageviews, endpoint })
+    variants:
+      - {path: /js/script.js, http_status: 200, probed: '2026-08-13', purpose: 'base tracker'}
+      - {path: /js/script.hash.js, http_status: 200, probed: '2026-08-13', purpose: 'hash-based routing'}
+      - {path: /js/script.manual.js, http_status: 200, probed: '2026-08-13', purpose: 'manual pageview triggering'}
+      - {path: /js/script.tagged-events.js, http_status: 200, probed: '2026-08-13', purpose: 'custom events via CSS classes'}
+      - {path: /js/script.revenue.js, http_status: 200, probed: '2026-08-13', purpose: 'ecommerce revenue tracking'}
+      - {path: /js/script.file-downloads.outbound-links.js, http_status: 200, probed: '2026-08-13', purpose: 'combined file-download and outbound-link tracking'}
+    versioning: >-
+      Unpinned. Every variant URL floats to the current build and carries no version in the
+      path, so a site owner cannot pin or audit what they are loading.
+  - family: Embedded dashboard
+    description: >-
+      Renders a full Plausible dashboard inside a third-party page via an iframe backed by a
+      shared link. Used for client reporting and public stats pages.
+    loader: https://plausible.io/js/embed.host.js
+    loader_http_status: 200
+    loader_probed: '2026-08-13'
+    docs: https://plausible.io/docs/embed-dashboard
+    requires: >-
+      A shared link created in Website settings > Visibility, with the password field left
+      BLANK — a password-protected dashboard cannot be embedded and the browser will show a
+      "refused to connect" error.
+    parameters:
+      - {name: auth, location: 'shared link query string', detail: 'the shared-link token, e.g. https://plausible.io/share/yourdomain.com?auth=TOKEN'}
+      - {name: theme, values: [light, dark, system], detail: 'chosen in the embed-code generator'}
+      - {name: background, detail: 'optional custom background colour'}
+      - {name: width, values: [manual], detail: 'append &width=manual to disable the default max-width: 1024px; margin: 0 auto CSS'}
+    related_operation: openapi/plausible-sharedlinks-api-openapi.yml#upsertSharedLink
+    detail: >-
+      Shared links can be created programmatically with the Sites API upsertSharedLink
+      operation, which makes the embed pipeline fully automatable for agencies managing many
+      client sites.
+  - family: Platform integrations
+    description: First-party drop-in installs for platforms where a script tag is inconvenient.
+    items:
+      - {name: WordPress plugin, url: 'https://plausible.io/wordpress-analytics-plugin', registry: 'https://wordpress.org/plugins/plausible-analytics/', official: true, version: 2.6.1, published: '2026-08-11'}
+      - {name: Google Tag Manager template, url: 'https://plausible.io/gtm-template', repository: 'https://github.com/plausible/plausible-gtm-template', official: true}
+  - family: Reporting connectors
+    description: Prebuilt surfaces for pulling Plausible data into external reporting tools.
+    items:
+      - {name: Looker Studio / Google Data Studio connector, url: 'https://plausible.io/docs/looker-studio', official: true, detail: 'Official connector; pulls analytics data into Looker Studio reports.'}
+      - {name: Airbyte connector, official: false, detail: 'Community-maintained, referenced from https://plausible.io/docs/data-access'}
+      - {name: Fivetran connector, official: false, detail: 'Community-maintained, referenced from https://plausible.io/docs/data-access'}
+  - family: Proxy
+    description: >-
+      First-party guidance for serving the tracker and ingest endpoint from the site's own
+      domain to avoid adblocker interference. Not a component itself, but it changes the
+      loader and `endpoint` values above.
+    docs: https://plausible.io/docs/proxy/introduction
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

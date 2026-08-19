@@ -1,0 +1,64 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://plausible.io/docs/stats-api-playground, https://plausible.io/plausible.io,
+  https://plausible.io/docs/events-api, https://plausible.io/docs/trial — read 2026-08-13
+test_live_separation:
+  supported: false
+  key_prefixes: null
+  modes: null
+  detail: >-
+    Plausible has NO test mode. There is one kind of API key, it has no prefix
+    distinguishing test from live, and every call it makes writes to or reads from
+    production data. An integrator building against the Events API is writing real events
+    into a real site's dataset.
+console:
+  name: Stats API playground
+  url: https://plausible.io/docs/stats-api-playground
+  http_status: 200
+  probed: '2026-08-13'
+  auth_required: true
+  detail: >-
+    An interactive Stats API query builder embedded in the documentation site (rendered
+    client-side as an `api-playground` component). It composes and executes real
+    /api/v2/query requests, so it needs a live Stats API key and returns live data — a
+    console, not a sandbox.
+public_demo:
+  url: https://plausible.io/plausible.io
+  http_status: 200
+  probed: '2026-08-13'
+  auth_required: false
+  detail: >-
+    Plausible publishes its own dashboard publicly. This is the closest thing to sample
+    data an integrator gets: it is real traffic to plausible.io, readable without an
+    account, useful for seeing shapes and dimensions before writing a query. It is not
+    queryable through the Stats API without a key.
+trial:
+  url: https://plausible.io/docs/trial
+  detail: >-
+    A time-limited free trial of the product with no credit card. This is the practical
+    substitute for a sandbox — but the Stats API is gated to Business and the Sites API to
+    Enterprise, so trial access does not necessarily expose the API surfaces.
+magic_test_values: []
+magic_test_values_detail: >-
+  None published. There are no test domains, no reserved site_ids, no fixture events and no
+  simulated visitor identifiers. Nothing is invented here.
+safe_testing_technique:
+  - technique: Unregistered-domain ingest
+    detail: >-
+      POST /api/event against a domain not registered in the account returns HTTP 202 with
+      body "ok" and the response header `x-plausible-dropped: 1` (observed 2026-08-13). The
+      event is discarded. This lets a client exercise the ingest path and validate its
+      request shape without polluting a real site, but it confirms nothing about storage.
+    source: https://plausible.io/docs/events-api
+  - technique: Debug echo
+    detail: >-
+      Sending `X-Debug-Request: true` on POST /api/event returns HTTP 200 with the IP
+      address Plausible used for visitor counting — the supported way to verify
+      X-Forwarded-For handling behind a proxy.
+    source: https://plausible.io/docs/events-api
+test_clocks: false
+fixtures: false
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

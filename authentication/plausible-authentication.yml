@@ -1,14 +1,67 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/plausible-sites-openapi.yml, openapi/plausible-stats-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: openapi/_original/plausible-stats-openapi.yml
+docs: https://plausible.io/docs/stats-api
+also_docs:
+  - https://plausible.io/docs/sites-api
+  - https://plausible.io/docs/events-api
+  - https://plausible.io/docs/account-settings
 summary:
   types:
   - http
+  api_key_in: [header]
+  oauth2_flows: []
 schemes:
 - name: bearerAuth
   type: http
   scheme: bearer
   bearerFormat: API Key
+  header: Authorization
+  value_form: 'Bearer YOUR-KEY'
   sources:
-  - openapi/plausible-sites-openapi.yml
-  - openapi/plausible-stats-openapi.yml
+  - openapi/_original/plausible-stats-openapi.yml
+  - https://plausible.io/docs/stats-api
+key_types:
+  - name: Stats API key
+    grants: 'POST /api/v2/query and the legacy /api/v1/stats/* surface'
+    created_in: 'Account settings > API Keys > create a new Stats API key'
+    plan_required: 'Business (600 requests/hour) or Enterprise'
+    docs: https://plausible.io/docs/stats-api
+  - name: Sites API key
+    grants: 'the /api/v1/sites/* surface — sites, goals, guests, custom properties, shared links, teams'
+    created_in: 'Account settings > API Keys > create a new Sites API key'
+    plan_required: 'Enterprise ("Sites API is available on Enterprise plans")'
+    docs: https://plausible.io/docs/sites-api
+unauthenticated_surfaces:
+  - surface: 'POST https://plausible.io/api/event'
+    detail: >-
+      The Events ingest endpoint takes NO credential at all. It is authorised by the
+      `domain` in the payload matching a site registered in Plausible; anything else is
+      accepted with 202 and silently dropped (x-plausible-dropped: 1). Available on all
+      plans, including free trials.
+    docs: https://plausible.io/docs/events-api
+  - surface: 'https://plausible.io/share/<domain>?auth=<token>'
+    detail: >-
+      Shared-link dashboards are authorised by a bearer-like token in the query string, not
+      by an API key. Optionally password protected. Created via upsertSharedLink.
+    docs: https://plausible.io/docs/embed-dashboard
+not_supported:
+  oauth2: 'no oauth2 securityScheme; /.well-known/oauth-authorization-server probed 2026-08-13 returned 404'
+  openid_connect: '/.well-known/openid-configuration probed 2026-08-13 returned 404'
+  mutual_tls: not documented
+  scopes: >-
+    No scope or permission model is published. A key''s reach is fixed by its TYPE (Stats vs
+    Sites) at creation time — it cannot be narrowed to a single site, to read-only, or to a
+    subset of operations. A Sites API key can delete every site on the account. No
+    scopes/ artifact is written because there is no scope surface to record.
+  key_rotation: 'not documented; keys are created and revoked manually in Account settings'
+  test_keys: 'no test/live key separation — see sandbox/plausible-sandbox.yml'
+account_security:
+  two_factor: 'supported; team owners can enforce 2FA account-wide (changelog 2025-11-05)'
+  sso: 'SAML 2.0 single sign-on on Enterprise plans (https://plausible.io/compliance) — dashboard login only, not API authorization'
+failure_modes:
+  - {status: 401, body: '{"error":"Missing API key. Please use a valid Plausible API key as a Bearer Token."}', cause: 'no Authorization header', observed: '2026-08-13'}
+  - {status: 401, body: '{"error":"Invalid API key or site ID. Please make sure you''re using a valid API key with access to the site you''ve requested."}', cause: 'bad key, wrong key type, wrong plan, or no access to site_id — all conflated into one message', observed: '2026-08-13'}
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

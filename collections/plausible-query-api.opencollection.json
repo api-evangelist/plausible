@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Plausible Events CustomProps Query API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run a query against site analytics data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://plausible.io/api/v2/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a query against a Plausible site to retrieve metrics with optional dimensions, filters, ordering, and pagination."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

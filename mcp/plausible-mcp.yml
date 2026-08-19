@@ -1,0 +1,119 @@
+generated: '2026-08-13'
+method: derived
+status: candidate
+source: >-
+  openapi/plausible-query-api-openapi.yml, openapi/plausible-sites-api-openapi.yml and the
+  sibling refined specs; third-party server details read from
+  https://plausible.io/docs/data-access#mcp-server and
+  https://github.com/getsentry/plausible-mcp
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: searched
+note: >-
+  PLAUSIBLE SHIPS NO FIRST-PARTY MCP SERVER. Its own documentation
+  (https://plausible.io/docs/data-access#mcp-server) links a Model Context Protocol server
+  and then states plainly: "This is a community-built tool, not an official Plausible
+  integration." That server is built by the Sentry team, not by Plausible Insights OÜ.
+  Because an MCPServer pointer asserts that THIS provider operates an agent surface, no
+  MCPServer pointer is wired into apis.yml — recording one would credit Plausible with a
+  surface it explicitly disclaims. deployment.mode is therefore `none`: the tools[] below
+  are a DERIVED candidate mapped from Plausible's own OpenAPI operations, and the
+  third_party[] block records the real, reachable community server for reference only.
+  /mcp on plausible.io was probed 2026-08-13 and returned HTTP 404.
+third_party:
+  - name: plausible-mcp
+    vendor: Sentry (getsentry)
+    repository: https://github.com/getsentry/plausible-mcp
+    referenced_by_provider: https://plausible.io/docs/data-access#mcp-server
+    provider_stance: >-
+      "This is a community-built tool, not an official Plausible integration."
+      — plausible.io/docs/data-access, last updated Jul 22, 2026
+    deployment:
+      mode: both
+      endpoint: https://plausible-mcp.sentry.dev/mcp
+      install: 'git clone https://github.com/getsentry/plausible-mcp && pnpm install && pnpm build && node dist/index.js'
+      package: https://github.com/getsentry/plausible-mcp
+      auth: api-key
+      verified: searched
+    auth_detail: >-
+      Local stdio reads PLAUSIBLE_API_KEY from the environment; the hosted HTTP endpoint
+      takes `Authorization: Bearer YOUR_PLAUSIBLE_API_KEY`. Either way the credential is a
+      Plausible Stats API key, which requires a Business or Enterprise plan.
+    tools:
+      - {name: get_timeseries, description: 'Traffic and conversion metrics over time (daily/weekly/monthly)'}
+      - {name: get_breakdown, description: 'Break down by page, source, country, device, browser, OS, UTM params'}
+      - {name: get_conversions, description: 'Goal conversion rates, optionally per-page'}
+      - {name: compare_periods, description: 'Side-by-side comparison of two date ranges with absolute and % deltas'}
+      - {name: send_feedback, description: 'Files feedback about the server (hosted deployments with Sentry enabled only)'}
+    tools_source: https://raw.githubusercontent.com/getsentry/plausible-mcp/main/README.md
+    tools_schema_note: >-
+      Tool names and descriptions were read from the published README. tools/list was NOT
+      introspected live against https://plausible-mcp.sentry.dev/mcp because that endpoint
+      requires a Plausible API key, so no inputSchema is recorded — see
+      mcp/plausible-tool-crosswalk.yml for the REST operations each tool is backed by.
+server:
+  name: plausible
+  transport: null
+  url: null
+tools:
+  - name: run_query
+    description: Run a Stats API v2 query for metrics, dimensions, filters, ordering and pagination.
+    source_operation: openapi/plausible-query-api-openapi.yml#runQuery
+  - name: list_sites
+    description: List the sites accessible to the API key.
+    source_operation: openapi/plausible-sites-api-openapi.yml#listSites
+  - name: get_site
+    description: Retrieve a single site's configuration.
+    source_operation: openapi/plausible-sites-api-openapi.yml#getSite
+  - name: create_site
+    description: Create a new site.
+    source_operation: openapi/plausible-sites-api-openapi.yml#createSite
+  - name: update_site
+    description: Update a site's domain or tracker script configuration.
+    source_operation: openapi/plausible-sites-api-openapi.yml#updateSite
+  - name: delete_site
+    description: Delete a site.
+    source_operation: openapi/plausible-sites-api-openapi.yml#deleteSite
+  - name: list_goals
+    description: List the goals configured on a site.
+    source_operation: openapi/plausible-goals-api-openapi.yml#listGoals
+  - name: upsert_goal
+    description: Create or find a goal.
+    source_operation: openapi/plausible-goals-api-openapi.yml#upsertGoal
+  - name: delete_goal
+    description: Delete a goal.
+    source_operation: openapi/plausible-goals-api-openapi.yml#deleteGoal
+  - name: list_custom_props
+    description: List custom properties configured on a site.
+    source_operation: openapi/plausible-customprops-api-openapi.yml#listCustomProps
+  - name: create_custom_prop
+    description: Create a custom property.
+    source_operation: openapi/plausible-customprops-api-openapi.yml#createCustomProp
+  - name: delete_custom_prop
+    description: Delete a custom property.
+    source_operation: openapi/plausible-customprops-api-openapi.yml#deleteCustomProp
+  - name: list_guests
+    description: List guests and pending invitations on a site.
+    source_operation: openapi/plausible-guests-api-openapi.yml#listGuests
+  - name: upsert_guest
+    description: Invite or update a guest's role on a site.
+    source_operation: openapi/plausible-guests-api-openapi.yml#upsertGuest
+  - name: delete_guest
+    description: Remove a guest or revoke an invitation.
+    source_operation: openapi/plausible-guests-api-openapi.yml#deleteGuest
+  - name: list_teams
+    description: List the teams accessible to the API key.
+    source_operation: openapi/plausible-teams-api-openapi.yml#listTeams
+  - name: upsert_shared_link
+    description: Create or find a shared dashboard link.
+    source_operation: openapi/plausible-sharedlinks-api-openapi.yml#upsertSharedLink
+  - name: record_event
+    description: Send a pageview or custom event to the ingest endpoint.
+    source_operation: openapi/plausible-events-api-openapi.yml#recordEvent
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

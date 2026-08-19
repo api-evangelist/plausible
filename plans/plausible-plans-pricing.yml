@@ -4,7 +4,17 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Plausible
 providerId: plausible
 created: '2026-05-04'
-modified: '2026-05-05'
+# Provenance: originally written by the API Evangelist bulk sweep dated 2026-05-04
+# (roadmap#35). RE-READ FROM THE PROVIDER on 2026-08-13 against
+# https://plausible.io/#pricing — every tier name, monthly price, site count, team-member
+# count, retention window and the 600 requests/hour Stats API quota below were confirmed
+# against the published pricing page on that date, and annual prices were added. Upgraded
+# generated -> searched.
+method: searched
+modified: '2026-08-13'
+verified: '2026-08-13'
+verified_source: https://plausible.io/#pricing
+plan_count: 4
 reconciled: true
 tags:
   - Analytics
@@ -38,6 +48,7 @@ plans:
         geo: global
         unit: 1
         price: '$9/month'
+        priceAnnual: '$108/year (2 months free)'
         userMultiplied: false
       - label: Sites
         name: sites
@@ -81,6 +92,7 @@ plans:
         geo: global
         unit: 1
         price: '$14/month'
+        priceAnnual: '$168/year (2 months free)'
         userMultiplied: false
       - label: Sites
         name: sites
@@ -123,6 +135,7 @@ plans:
         geo: global
         unit: 1
         price: '$19/month'
+        priceAnnual: '$228/year (2 months free)'
         userMultiplied: false
       - label: Sites
         name: sites

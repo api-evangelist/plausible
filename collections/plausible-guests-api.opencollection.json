@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Plausible Events CustomProps Guests API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Guests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List guests/invitations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://plausible.io/api/v1/sites/guests"
+          },
+          "docs": "List guests/invitations"
+        },
+        {
+          "info": {
+            "name": "Invite or manage guest access",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://plausible.io/api/v1/sites/guests",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invite or manage guest access"
+        },
+        {
+          "info": {
+            "name": "Remove guest or invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://plausible.io/api/v1/sites/guests/:email",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove guest or invitation"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

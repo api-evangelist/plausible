@@ -1,0 +1,35 @@
+generated: '2026-08-13'
+method: searched
+source: https://plausible.io/changelog
+also: https://github.com/plausible/analytics/releases
+scheme: date-based
+scheme_detail: >-
+  The product changelog is dated, not versioned — entries carry a publication date and a
+  title, with no semantic version attached. Version numbers exist only on the open source
+  application releases (MAJOR.MINOR container tags) and are not correlated with the
+  product changelog entries. No changelog entry observed announced a breaking API change.
+current_version: null
+current_version_detail: >-
+  Plausible publishes no product version number. The API surfaces version independently in
+  the path (Stats API v2, Sites API v1) — see lifecycle/plausible-lifecycle.yml.
+api_specific: false
+api_specific_detail: >-
+  The changelog is product-facing. API changes are not called out separately, so an
+  integrator cannot filter it for contract-affecting changes.
+window: 'recent — Nov 2025 through Jul 2026, read 2026-08-13'
+entries:
+  - {date: '2026-07-14', title: 'Add notes to your traffic chart with annotations', kind: feature, breaking: false}
+  - {date: '2026-06-24', title: 'See full URLs in Page reports', kind: feature, breaking: false}
+  - {date: '2026-06-10', title: 'New AI Assistants channel', kind: feature, breaking: false}
+  - {date: '2026-05-27', title: 'User journeys is here!', kind: feature, breaking: false}
+  - {date: '2026-04-14', title: 'Strict order funnels for precise path analysis', kind: feature, breaking: false}
+  - {date: '2026-03-18', title: 'Sort your sites by traffic', kind: improvement, breaking: false}
+  - {date: '2026-02-11', title: 'Last 24 Hours', kind: feature, breaking: false}
+  - {date: '2026-02-04', title: 'Goals with custom properties', kind: feature, breaking: false}
+  - {date: '2026-01-05', title: 'Limited dashboard sharing', kind: feature, breaking: false}
+  - {date: '2025-11-24', title: 'Revenue breakdown in your reports', kind: feature, breaking: false}
+  - {date: '2025-11-17', title: 'Introducing, Consolidated Views', kind: feature, breaking: false}
+  - {date: '2025-11-05', title: 'Team owners can now enforce 2FA for extra security', kind: feature, breaking: false}
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,244 @@
+{
+  "item": [
+    {
+      "id": "d23b5181-28f5-4bd2-b32c-3d5c8a397c86",
+      "name": "Query",
+      "description": {
+        "content": "Run analytics queries against site data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cbb41235-39e3-4780-99e1-40896167f361",
+          "name": "Run a query against site analytics data",
+          "request": {
+            "name": "Run a query against site analytics data",
+            "description": {
+              "content": "Execute a query against a Plausible site to retrieve metrics with optional dimensions, filters, ordering, and pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"site_id\": \"<string>\",\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_range\": \"<string>\",\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"order_by\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"include\": {\n    \"imports\": \"<boolean>\",\n    \"time_labels\": \"<boolean>\",\n    \"total_rows\": \"<boolean>\"\n  },\n  \"pagination\": {\n    \"limit\": \"<integer>\",\n    \"offset\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "15e56d15-5731-4f51-94f3-6356a88fc099",
+              "name": "Query result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"site_id\": \"example.com\",\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_range\": \"<string>\",\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"order_by\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"include\": {\n    \"imports\": \"<boolean>\",\n    \"time_labels\": \"<boolean>\",\n    \"total_rows\": \"<boolean>\"\n  },\n  \"pagination\": {\n    \"limit\": \"<integer>\",\n    \"offset\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"metrics\": [\n        6449.217269772221,\n        8176.99932321366\n      ],\n      \"dimensions\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"metrics\": [\n        7307.735264768338,\n        6603.41640871616\n      ],\n      \"dimensions\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"meta\": {},\n  \"query\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6bc51745-bd60-4984-b48e-87ff4a830587",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"site_id\": \"example.com\",\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_range\": \"<string>\",\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"order_by\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"include\": {\n    \"imports\": \"<boolean>\",\n    \"time_labels\": \"<boolean>\",\n    \"total_rows\": \"<boolean>\"\n  },\n  \"pagination\": {\n    \"limit\": \"<integer>\",\n    \"offset\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d8546f27-cc8e-4d5b-96a7-2b158be1cec2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"site_id\": \"example.com\",\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_range\": \"<string>\",\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"order_by\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"include\": {\n    \"imports\": \"<boolean>\",\n    \"time_labels\": \"<boolean>\",\n    \"total_rows\": \"<boolean>\"\n  },\n  \"pagination\": {\n    \"limit\": \"<integer>\",\n    \"offset\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6ec704b0-074c-4b4b-ab4c-427a4cd56611",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"site_id\": \"example.com\",\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_range\": \"<string>\",\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"order_by\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"include\": {\n    \"imports\": \"<boolean>\",\n    \"time_labels\": \"<boolean>\",\n    \"total_rows\": \"<boolean>\"\n  },\n  \"pagination\": {\n    \"limit\": \"<integer>\",\n    \"offset\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://plausible.io",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c3ccedf6-b17d-4c63-981d-60affda1b472",
+    "name": "Plausible Events CustomProps Query API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Plausible Events API allows server-side and non-browser clients to send pageviews and custom events to Plausible.\n\nContact Support:\n Name: Plausible Support",
+      "type": "text/plain"
+    }
+  }
+}

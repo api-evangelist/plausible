@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Plausible Events CustomProps SharedLinks API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SharedLinks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create or find shared link",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://plausible.io/api/v1/sites/shared-links",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or find shared link"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

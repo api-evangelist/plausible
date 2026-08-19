@@ -1,0 +1,133 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://plausible.io/docs/stats-api, https://plausible.io/docs/sites-api,
+  https://plausible.io/docs/events-api, plus live unauthenticated probes of
+  POST https://plausible.io/api/v2/query, GET https://plausible.io/api/v1/sites and
+  POST https://plausible.io/api/event on 2026-08-13
+authentication:
+  style: bearer-api-key
+  header: 'Authorization: Bearer YOUR-KEY'
+  docs: https://plausible.io/docs/stats-api
+  key_types:
+    - {name: Stats API key, created_in: 'Account settings > API Keys', plan: 'Business and Enterprise'}
+    - {name: Sites API key, created_in: 'Account settings > API Keys', plan: 'Enterprise'}
+  oauth: false
+  scopes: false
+  test_live_separation: false
+  detail: >-
+    There is one credential shape. No OAuth, no OIDC, no scopes, no key prefix that
+    distinguishes test from live. Key type is fixed at creation time and determines which
+    API the key may call. See authentication/plausible-authentication.yml.
+idempotency:
+  supported: false
+  header: null
+  scope: null
+  retention: null
+  detail: >-
+    Plausible documents NO idempotency-key mechanism. There is no Idempotency-Key header,
+    no client-supplied request identifier, and no replay window. The Sites API PUT routes
+    (upsertGoal, upsertGuest, createCustomProp, upsertSharedLink) use find-or-create
+    semantics, so repeating those specific calls converges on the same resource rather
+    than duplicating it — that is idempotent BY OPERATION DESIGN, not an idempotency
+    contract, and it does not extend to POST /api/v1/sites (createSite) or to
+    POST /api/event. No `Idempotency` pointer is emitted in apis.yml for this reason.
+pagination:
+  stats_api:
+    style: limit-offset
+    location: request body
+    params: {limit: 'pagination.limit (default 10000)', offset: 'pagination.offset (default 0)'}
+    total_count: 'set include.total_rows = true; total returned in meta.total_rows'
+    docs: https://plausible.io/docs/stats-api
+  sites_api:
+    style: cursor
+    location: query string
+    params: {before: cursor, after: cursor, limit: 'default 100'}
+    response_fields: [meta.before, meta.after, meta.limit]
+    end_of_pages: 'a null value in meta.before or meta.after means there is no previous/next page'
+    docs: https://plausible.io/docs/sites-api
+field_expansion:
+  supported: false
+  detail: >-
+    No expand/include-relations mechanism. The Stats API `include` object toggles
+    computed extras (imports, time_labels, total_rows) rather than expanding related
+    resources.
+sparse_fieldsets:
+  supported: true
+  detail: >-
+    The Stats API is projection-first: the caller names exactly the `metrics` and
+    `dimensions` it wants in the request body and gets back only those, so there is no
+    separate fields[] parameter.
+metadata:
+  supported: true
+  detail: >-
+    Arbitrary key/value metadata is attached to ingested events through the `props` object
+    on POST /api/event (maximum 30 key/value pairs), and to revenue through the `revenue`
+    object. Property keys must first be registered as custom properties via the Sites API
+    (createCustomProp) before they can be broken down on in the Stats API.
+request_tracing:
+  supported: true
+  header: x-request-id
+  direction: response
+  observed: '2026-08-13'
+  detail: >-
+    Every response observed carried an `x-request-id` header (e.g. on the 401 from
+    POST /api/v2/query and on the 202 from POST /api/event). No client-supplied
+    correlation/trace header is documented.
+versioning:
+  scheme: uri-path
+  current: v2
+  versions:
+    - {version: v2, surface: 'Stats API — POST /api/v2/query', status: current}
+    - {version: v1, surface: 'Sites API — /api/v1/sites/*', status: current}
+    - {version: v1, surface: 'Stats API v1 — /api/v1/stats/*', status: 'legacy — documented as "a legacy feature", no sunset date'}
+    - {version: unversioned, surface: 'Events API — POST /api/event', status: current}
+  detail: >-
+    Version lives in the path and differs per API: the Stats API is on v2 while the Sites
+    API is still on v1 and the ingest endpoint is unversioned. There is no version header,
+    no date-pinned version, and no release train.
+error_envelope:
+  format: flat-json
+  rfc9457: false
+  content_type: application/json; charset=utf-8
+  shape: '{"error": "human-readable message"}'
+  observed_examples:
+    - status: 401
+      body: '{"error":"Missing API key. Please use a valid Plausible API key as a Bearer Token."}'
+      observed_on: 'POST https://plausible.io/api/v2/query and GET https://plausible.io/api/v1/sites'
+    - status: 401
+      body: '{"error":"Invalid API key or site ID. Please make sure you''re using a valid API key with access to the site you''ve requested."}'
+      observed_on: 'POST https://plausible.io/api/v2/query with an invalid bearer token'
+  detail: >-
+    A single string field. No machine-readable error code, no type URI, no field-level
+    detail array, no problem+json. See errors/plausible-problem-types.yml.
+rate_limit_signaling:
+  headers_published: false
+  headers_observed: []
+  status_on_exhaustion: 429
+  documented_limit: '600 requests per hour per Stats API key (default)'
+  detail: >-
+    Plausible publishes the number but not the runtime signal: no X-RateLimit-*,
+    RateLimit-* or Retry-After headers were returned on any response observed 2026-08-13.
+    An agent cannot read remaining budget and must infer exhaustion from the 429 alone.
+    See rate-limits/plausible-rate-limits.yml.
+ingest_semantics:
+  always_202: true
+  drop_signal_header: 'x-plausible-dropped: 1'
+  debug_header: 'X-Debug-Request: true'
+  client_ip_header: X-Forwarded-For
+  observed: '2026-08-13 — POST /api/event returned HTTP 202 with body "ok" and x-plausible-dropped: 1 for an unregistered domain'
+  detail: >-
+    The ingest endpoint is fire-and-forget: 202 is returned whether the event was stored or
+    silently discarded by bot/domain filtering. The ONLY way to tell the difference is the
+    x-plausible-dropped response header. Server-side callers must set X-Forwarded-For to
+    the real client IP or events are dropped as bot traffic.
+cross_links:
+  errors: errors/plausible-problem-types.yml
+  lifecycle: lifecycle/plausible-lifecycle.yml
+  authentication: authentication/plausible-authentication.yml
+  rate_limits: rate-limits/plausible-rate-limits.yml
+  data_model: data-model/plausible-data-model.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

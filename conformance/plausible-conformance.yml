@@ -1,0 +1,110 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  openapi/*.yml in this repo, plus https://plausible.io/compliance,
+  https://plausible.io/security, https://plausible.io/dpa,
+  https://plausible.io/data-policy and live probes of the API on 2026-08-13
+standards:
+  - id: openapi-3.0
+    conforms: true
+    evidence: 'eight OpenAPI 3.0.3 documents in openapi/ (API Evangelist authored from the published docs; Plausible publishes no spec of its own — /openapi.json probed 2026-08-13 returned 404)'
+  - id: oauth2
+    conforms: false
+    evidence: 'no oauth2 securityScheme in any spec; /.well-known/oauth-authorization-server probed 2026-08-13 returned 404'
+  - id: oidc
+    conforms: false
+    evidence: '/.well-known/openid-configuration probed 2026-08-13 returned 404'
+  - id: saml2
+    conforms: true
+    evidence: 'SAML 2.0 single sign-on listed as an Enterprise feature on https://plausible.io/compliance — an account-login standard, not an API authorization standard'
+  - id: rfc6750-bearer-token
+    conforms: true
+    evidence: 'Authorization: Bearer YOUR-KEY documented at https://plausible.io/docs/stats-api and returned 401 on omission when probed 2026-08-13'
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: 'errors are a flat {"error": "..."} JSON object with content-type application/json, not application/problem+json — observed live 2026-08-13'
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: '/.well-known/security.txt probed 2026-08-13 returned 404; the disclosure program is published as an HTML page instead'
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: 'no Sunset or Deprecation response headers observed and no deprecation policy published'
+  - id: rfc9110-conditional-requests
+    conforms: false
+    evidence: 'no ETag/If-None-Match support documented or observed'
+  - id: idempotency-key
+    conforms: false
+    evidence: 'no Idempotency-Key header documented; see conventions/plausible-conventions.yml'
+  - id: cursor-pagination
+    conforms: true
+    evidence: 'Sites API uses before/after/limit cursors and echoes meta.before / meta.after / meta.limit — https://plausible.io/docs/sites-api'
+  - id: json-api
+    conforms: false
+    evidence: 'responses are bespoke JSON; no application/vnd.api+json'
+  - id: graphql
+    conforms: false
+    evidence: '/graphql probed 2026-08-13 returned 404'
+  - id: asyncapi
+    conforms: false
+    evidence: 'no event, streaming or webhook surface is published — see the note below'
+  - id: mcp
+    conforms: false
+    evidence: 'no first-party MCP server; /mcp probed 2026-08-13 returned 404. The server linked from plausible.io/docs/data-access is community-built by Sentry and labelled as such by Plausible'
+  - id: a2a
+    conforms: false
+    evidence: '/.well-known/agent-card.json and /.well-known/agent.json both probed 2026-08-13, both 404'
+  - id: iso-4217
+    conforms: true
+    evidence: 'the Events API revenue object takes an ISO 4217 currency code — https://plausible.io/docs/events-api'
+  - id: iana-timezones
+    conforms: true
+    evidence: 'site timezone accepts IANA tz identifiers (example Etc/UTC) — openapi/plausible-sites-api-openapi.yml SiteCreate'
+  - id: agpl-3.0
+    conforms: true
+    evidence: 'the application is licensed AGPL-3.0 — https://github.com/plausible/analytics/blob/master/LICENSE.md, declared in info.license of every spec'
+regulatory:
+  - id: gdpr
+    conforms: true
+    kind: compliance-by-design
+    evidence: >-
+      https://plausible.io/compliance — "An independent review by a data protection lawyer
+      confirms Plausible requires no cookie consent and falls outside the scope of GDPR
+      personal data processing." A Data Processing Agreement is published at
+      https://plausible.io/dpa.
+  - id: ccpa
+    conforms: true
+    kind: compliance-by-design
+    evidence: 'claimed on https://plausible.io/compliance and https://plausible.io/data-policy; no cookies or personal identifiers are collected'
+  - id: eu-data-residency
+    conforms: true
+    kind: operational
+    evidence: >-
+      https://plausible.io/security — "All visitor data is kept encrypted in Germany on
+      servers owned by a German company" and "Visitor data does not leave the EU".
+certifications:
+  audited: false
+  detail: >-
+    Plausible claims NO third-party audit certification. SOC 2, ISO 27001, PCI DSS, HIPAA,
+    FedRAMP and CSA STAR are absent from both https://plausible.io/compliance and
+    https://plausible.io/security (both read 2026-08-13). Its published posture is
+    compliance-by-design plus one independent legal review, and it says so openly. That is
+    an honest position, not a gap being hidden — but it is materially different from a
+    certified posture and is recorded here as such. No security/plausible-trust-center.yml
+    is written, because there is no certification set to record.
+security_practices_published:
+  - {practice: 'TLS 1.2 or newer, TLS 1.3 preferred', source: 'https://plausible.io/security'}
+  - {practice: 'AES-256 encrypted backups, 30-day retention, quarterly restore testing', source: 'https://plausible.io/security'}
+  - {practice: 'IP and User-Agent hashed daily with a rotating salt, deleted every 24 hours; never stored raw', source: 'https://plausible.io/security'}
+  - {practice: 'daily automated dependency scanning and regular vulnerability scans', source: 'https://plausible.io/security'}
+  - {practice: 'business continuity and disaster recovery plans, reviewed annually', source: 'https://plausible.io/security'}
+  - {practice: 'responsible disclosure program', source: 'https://plausible.io/vulnerability-disclosure-program'}
+event_surface_note: >-
+  Plausible publishes no webhooks, no callbacks, no streaming endpoint and no AsyncAPI
+  document (/docs/webhooks probed 2026-08-13: 404; no webhook reference exists anywhere in
+  the docs index). The closest analogue is Enterprise-only "Scheduled raw event exports",
+  which is a batch delivery arrangement, not a subscribable event contract. No asyncapi/
+  artifact and no Webhooks pointer are emitted — an absent event surface is not penalized
+  and must not be fabricated.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

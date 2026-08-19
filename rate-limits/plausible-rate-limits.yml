@@ -4,7 +4,16 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Plausible
 providerId: plausible
 created: '2026-05-04'
-modified: '2026-05-05'
+# Provenance: originally written by the API Evangelist bulk sweep dated 2026-05-04
+# (roadmap#35). RE-READ FROM THE PROVIDER on 2026-08-13. The 600 requests/hour figure was
+# confirmed verbatim at https://plausible.io/docs/stats-api ("API keys have a rate limit of
+# 600 requests per hour by default") and at https://plausible.io/#pricing. The absence of
+# rate-limit response headers was confirmed by live probes on 2026-08-13 rather than
+# inferred from the docs — see responseHeaders below. Upgraded generated -> searched.
+method: searched
+modified: '2026-08-13'
+verified: '2026-08-13'
+limit_count: 3
 reconciled: true
 tags:
   - Rate Limiting
@@ -23,6 +32,32 @@ responseCodes:
   throttled: 429
   ingestAccepted: 202
   ingestDropped: 202
+responseHeaders:
+  published: []
+  observed: []
+  observedOn: '2026-08-13'
+  observedRequests:
+    - 'POST https://plausible.io/api/v2/query (401, no auth)'
+    - 'POST https://plausible.io/api/v2/query (401, invalid bearer)'
+    - 'GET https://plausible.io/api/v1/sites (401, no auth)'
+    - 'POST https://plausible.io/api/event (202)'
+  absent:
+    - X-RateLimit-Limit
+    - X-RateLimit-Remaining
+    - X-RateLimit-Reset
+    - RateLimit
+    - RateLimit-Policy
+    - Retry-After
+  note: >-
+    THIS IS THE GAP. Plausible publishes the number but not the runtime signal: no
+    X-RateLimit-*, no RateLimit-* and no Retry-After header was returned on any response
+    observed. An agent or client cannot read its remaining budget, cannot learn when the
+    window resets, and can only discover exhaustion by being refused with a 429. Every
+    response does carry an `x-request-id` header, which is useful for support but not for
+    flow control.
+  presentHeaders:
+    - {name: x-request-id, purpose: 'per-request correlation id, present on every response'}
+    - {name: x-plausible-dropped, purpose: 'set to 1 on POST /api/event when the event was filtered and discarded'}
 limits:
   - name: Stats API default
     scope: api-key

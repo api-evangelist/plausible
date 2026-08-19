@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Plausible Events CustomProps API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CustomProps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List custom properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://plausible.io/api/v1/sites/custom-props"
+          },
+          "docs": "List custom properties"
+        },
+        {
+          "info": {
+            "name": "Create custom property",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://plausible.io/api/v1/sites/custom-props",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create custom property"
+        },
+        {
+          "info": {
+            "name": "Delete custom property",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://plausible.io/api/v1/sites/custom-props/:property",
+            "params": [
+              {
+                "name": "property",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete custom property"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
