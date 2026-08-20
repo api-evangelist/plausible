@@ -26,6 +26,17 @@ tags:
   - Event Tracking
   - GDPR
   - Goal Conversions
+  - Open-Source
+  - Privacy
+  - Self-Hosted
+  - Site Management
+  - Web Analytics
+tags_raw:
+  - Analytics
+  - Cookie-Free
+  - Event Tracking
+  - GDPR
+  - Goal Conversions
   - Open Source
   - Privacy
   - Self-Hosted
@@ -62,6 +73,8 @@ apis:
   humanURL: https://plausible.io/docs/events-api
   baseURL: https://plausible.io/api
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -142,6 +155,8 @@ apis:
   humanURL: https://plausible.io/docs/sites-api
   baseURL: https://plausible.io/api/v1
   tags:
+  - Shared Links
+  tags_raw:
   - SharedLinks
   properties:
   - type: OpenAPI
@@ -182,6 +197,8 @@ apis:
   humanURL: https://plausible.io/docs/sites-api
   baseURL: https://plausible.io/api/v1
   tags:
+  - Team
+  tags_raw:
   - Teams
   properties:
   - type: OpenAPI
