@@ -168,7 +168,7 @@ apis:
   humanURL: https://plausible.io/docs/sites-api
   baseURL: https://plausible.io/api/v1
   tags:
-  - Shared Links
+  - SharedLinks
   tags_raw:
   - SharedLinks
   properties:
