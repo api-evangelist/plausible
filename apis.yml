@@ -168,7 +168,7 @@ apis:
   humanURL: https://plausible.io/docs/sites-api
   baseURL: https://plausible.io/api/v1
   tags:
-  - SharedLinks
+  - Shared Links
   tags_raw:
   - SharedLinks
   properties:
@@ -227,6 +227,9 @@ apis:
   - type: Documentation
     url: https://plausible.io/docs/sites-api
 common:
+  - type: License
+    name: AGPL-3.0
+    url: https://github.com/plausible/analytics/blob/master/LICENSE
   - type: Packages
     url: packages/plausible-packages.yml
   - type: SDKs
