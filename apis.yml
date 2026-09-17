@@ -166,28 +166,6 @@ apis:
     url: https://plausible.io/docs/events-api
   - type: Documentation
     url: https://plausible.io/docs/sites-api
-- aid: plausible:plausible-sharedlinks-api
-  name: Plausible SharedLinks API
-  description: The SharedLinks API from Plausible — 1 operation(s) for sharedlinks.
-  humanURL: https://plausible.io/docs/sites-api
-  baseURL: https://plausible.io/api/v1
-  tags:
-  - Shared Links
-  tags_raw:
-  - SharedLinks
-  properties:
-  - type: OpenAPI
-    url: openapi/plausible-sharedlinks-api-openapi.yml
-  - type: Overlay
-    url: overlays/plausible-sharedlinks-api-overlay.yaml
-  - type: APIReference
-    url: https://plausible.io/docs/sites-api
-  - type: Documentation
-    url: https://plausible.io/docs/stats-api
-  - type: Documentation
-    url: https://plausible.io/docs/events-api
-  - type: Documentation
-    url: https://plausible.io/docs/sites-api
 - aid: plausible:plausible-sites-api
   name: Plausible Sites API
   description: The Sites API from Plausible — 2 operation(s) for sites.
@@ -230,7 +208,27 @@ apis:
     url: https://plausible.io/docs/events-api
   - type: Documentation
     url: https://plausible.io/docs/sites-api
+- aid: plausible:plausible-shared-links-api
+  name: Plausible Shared Links API
+  description: The Shared Links API from Plausible — 1 operation(s) for shared links.
+  humanURL: https://plausible.io/docs/sites-api
+  baseURL: https://plausible.io/api/v1
+  tags:
+  - Shared Links
+  properties:
+  - type: OpenAPI
+    url: openapi/plausible-shared-links-api-openapi.yml
+  - type: APIReference
+    url: https://plausible.io/docs/sites-api
+  - type: Documentation
+    url: https://plausible.io/docs/stats-api
+  - type: Documentation
+    url: https://plausible.io/docs/events-api
+  - type: Documentation
+    url: https://plausible.io/docs/sites-api
 common:
+  - type: Overlay
+    url: overlays/plausible-sharedlinks-api-overlay.yaml
   - type: License
     name: AGPL-3.0
     url: https://github.com/plausible/analytics/blob/master/LICENSE
