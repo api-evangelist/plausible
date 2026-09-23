@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Plausible Events CustomProps Query API
-  description: The Plausible Events API allows server-side and non-browser clients to send pageviews and custom events to Plausible.
-  version: 1.0.0
+  title: Plausible Stats Query API
+  description: The Plausible Stats API provides programmatic access to website analytics data, including aggregate metrics, time-series data, and breakdowns by various dimensions such as pages, sources, countries, devices, and browsers.
+  version: 2.0.0
   contact:
     name: Plausible Support
     url: https://plausible.io/contact
@@ -12,6 +12,8 @@ info:
 servers:
 - url: https://plausible.io
   description: Plausible Cloud
+security:
+- bearerAuth: []
 tags:
 - name: Query
   description: Run analytics queries against site data.
@@ -141,3 +143,8 @@ components:
           type: object
         query:
           type: object
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key

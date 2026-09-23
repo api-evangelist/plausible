@@ -1,28 +1,41 @@
 {
   "provider": "plausible",
   "sources": [
-    "plausible-customprops-api-openapi.yml",
-    "plausible-events-api-openapi.yml",
-    "plausible-goals-api-openapi.yml",
-    "plausible-guests-api-openapi.yml",
-    "plausible-query-api-openapi.yml",
-    "plausible-sharedlinks-api-openapi.yml",
-    "plausible-sites-api-openapi.yml",
-    "plausible-teams-api-openapi.yml"
+    "_original/plausible-events-openapi.yml",
+    "_original/plausible-sites-openapi.yml",
+    "_original/plausible-stats-openapi.yml"
   ],
   "outputs": [
-    "plausible-customprops-api-openapi.yml",
     "plausible-events-api-openapi.yml",
+    "plausible-customprops-api-openapi.yml",
     "plausible-goals-api-openapi.yml",
     "plausible-guests-api-openapi.yml",
-    "plausible-query-api-openapi.yml",
     "plausible-sharedlinks-api-openapi.yml",
     "plausible-sites-api-openapi.yml",
-    "plausible-teams-api-openapi.yml"
+    "plausible-teams-api-openapi.yml",
+    "plausible-query-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "plausible-events-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "plausible-sites-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "plausible-stats-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "superseded outputs removed: plausible-shared-links-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 8 total)"
+  ],
+  "skipped": [
+    "plausible-customprops-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "plausible-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "plausible-goals-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "plausible-guests-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "plausible-query-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "plausible-shared-links-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "plausible-sites-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "plausible-teams-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

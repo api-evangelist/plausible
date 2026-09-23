@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Plausible Events CustomProps Sites API
-  description: The Plausible Events API allows server-side and non-browser clients to send pageviews and custom events to Plausible.
+  title: Plausible Sites API
+  description: The Plausible Sites API enables developers to programmatically manage sites, teams, goals, custom properties, shared links, and guest access within their Plausible account.
   version: 1.0.0
   contact:
     name: Plausible Support
@@ -12,6 +12,8 @@ info:
 servers:
 - url: https://plausible.io
   description: Plausible Cloud
+security:
+- bearerAuth: []
 tags:
 - name: Sites
 paths:
@@ -77,6 +79,12 @@ paths:
           description: Site deleted.
 components:
   parameters:
+    SiteId:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        type: string
     Limit:
       in: query
       name: limit
@@ -90,12 +98,6 @@ components:
     After:
       in: query
       name: after
-      schema:
-        type: string
-    SiteId:
-      in: path
-      name: site_id
-      required: true
       schema:
         type: string
   schemas:
@@ -114,13 +116,6 @@ components:
           type: boolean
         hash_based_routing:
           type: boolean
-    SiteUpdate:
-      type: object
-      properties:
-        domain:
-          type: string
-        tracker_script_configuration:
-          $ref: '#/components/schemas/TrackerConfig'
     SiteCreate:
       type: object
       required:
@@ -133,3 +128,15 @@ components:
           example: Etc/UTC
         tracker_script_configuration:
           $ref: '#/components/schemas/TrackerConfig'
+    SiteUpdate:
+      type: object
+      properties:
+        domain:
+          type: string
+        tracker_script_configuration:
+          $ref: '#/components/schemas/TrackerConfig'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
