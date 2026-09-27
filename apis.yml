@@ -43,7 +43,7 @@ tags:
   - Event Tracking
   - GDPR
   - Goal Conversions
-  - Open-Source
+  - Open Source
   - Privacy
   - Self-Hosted
   - Site Management
@@ -59,6 +59,7 @@ tags_raw:
   - Self-Hosted
   - Site Management
   - Web Analytics
+  - Open-Source
 url: https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/apis.yml
 created: '2026-03-26'
 modified: '2026-08-13'

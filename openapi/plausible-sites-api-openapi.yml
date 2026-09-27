@@ -79,43 +79,28 @@ paths:
           description: Site deleted.
 components:
   parameters:
+    Limit:
+      in: query
+      name: limit
+      schema:
+        type: integer
+    After:
+      in: query
+      name: after
+      schema:
+        type: string
     SiteId:
       in: path
       name: site_id
       required: true
       schema:
         type: string
-    Limit:
-      in: query
-      name: limit
-      schema:
-        type: integer
     Before:
       in: query
       name: before
       schema:
         type: string
-    After:
-      in: query
-      name: after
-      schema:
-        type: string
   schemas:
-    TrackerConfig:
-      type: object
-      properties:
-        outbound_links:
-          type: boolean
-        file_downloads:
-          type: boolean
-        form_submissions:
-          type: boolean
-        track_404_pages:
-          type: boolean
-        revenue_tracking:
-          type: boolean
-        hash_based_routing:
-          type: boolean
     SiteCreate:
       type: object
       required:
@@ -135,6 +120,21 @@ components:
           type: string
         tracker_script_configuration:
           $ref: '#/components/schemas/TrackerConfig'
+    TrackerConfig:
+      type: object
+      properties:
+        outbound_links:
+          type: boolean
+        file_downloads:
+          type: boolean
+        form_submissions:
+          type: boolean
+        track_404_pages:
+          type: boolean
+        revenue_tracking:
+          type: boolean
+        hash_based_routing:
+          type: boolean
   securitySchemes:
     bearerAuth:
       type: http
