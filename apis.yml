@@ -228,6 +228,9 @@ apis:
   - type: Documentation
     url: https://plausible.io/docs/sites-api
 common:
+  - type: CapabilityMap
+    url: capabilities/plausible-capability-edges.yml
+    name: Plausible Business Capability Map
   - type: Overlay
     url: overlays/plausible-sharedlinks-api-overlay.yaml
   - type: License
