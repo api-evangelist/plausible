@@ -46,26 +46,6 @@ paths:
           description: Rate limit exceeded
 components:
   schemas:
-    QueryResponse:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            type: object
-            properties:
-              metrics:
-                type: array
-                items:
-                  type: number
-              dimensions:
-                type: array
-                items:
-                  type: string
-        meta:
-          type: object
-        query:
-          type: object
     QueryRequest:
       type: object
       required:
@@ -143,6 +123,26 @@ components:
               type: integer
             offset:
               type: integer
+    QueryResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              metrics:
+                type: array
+                items:
+                  type: number
+              dimensions:
+                type: array
+                items:
+                  type: string
+        meta:
+          type: object
+        query:
+          type: object
   securitySchemes:
     bearerAuth:
       type: http

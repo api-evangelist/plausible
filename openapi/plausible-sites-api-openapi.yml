@@ -94,13 +94,6 @@ components:
           type: boolean
         hash_based_routing:
           type: boolean
-    SiteUpdate:
-      type: object
-      properties:
-        domain:
-          type: string
-        tracker_script_configuration:
-          $ref: '#/components/schemas/TrackerConfig'
     SiteCreate:
       type: object
       required:
@@ -113,10 +106,23 @@ components:
           example: Etc/UTC
         tracker_script_configuration:
           $ref: '#/components/schemas/TrackerConfig'
+    SiteUpdate:
+      type: object
+      properties:
+        domain:
+          type: string
+        tracker_script_configuration:
+          $ref: '#/components/schemas/TrackerConfig'
   parameters:
-    Before:
+    Limit:
       in: query
-      name: before
+      name: limit
+      schema:
+        type: integer
+    SiteId:
+      in: path
+      name: site_id
+      required: true
       schema:
         type: string
     After:
@@ -124,17 +130,11 @@ components:
       name: after
       schema:
         type: string
-    SiteId:
-      in: path
-      name: site_id
-      required: true
+    Before:
+      in: query
+      name: before
       schema:
         type: string
-    Limit:
-      in: query
-      name: limit
-      schema:
-        type: integer
   securitySchemes:
     bearerAuth:
       type: http
