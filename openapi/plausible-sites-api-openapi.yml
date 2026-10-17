@@ -79,6 +79,25 @@ paths:
           description: Site deleted.
 components:
   schemas:
+    SiteUpdate:
+      type: object
+      properties:
+        domain:
+          type: string
+        tracker_script_configuration:
+          $ref: '#/components/schemas/TrackerConfig'
+    SiteCreate:
+      type: object
+      required:
+      - domain
+      properties:
+        domain:
+          type: string
+        timezone:
+          type: string
+          example: Etc/UTC
+        tracker_script_configuration:
+          $ref: '#/components/schemas/TrackerConfig'
     TrackerConfig:
       type: object
       properties:
@@ -94,45 +113,26 @@ components:
           type: boolean
         hash_based_routing:
           type: boolean
-    SiteCreate:
-      type: object
-      required:
-      - domain
-      properties:
-        domain:
-          type: string
-        timezone:
-          type: string
-          example: Etc/UTC
-        tracker_script_configuration:
-          $ref: '#/components/schemas/TrackerConfig'
-    SiteUpdate:
-      type: object
-      properties:
-        domain:
-          type: string
-        tracker_script_configuration:
-          $ref: '#/components/schemas/TrackerConfig'
   parameters:
+    Before:
+      in: query
+      name: before
+      schema:
+        type: string
     Limit:
       in: query
       name: limit
       schema:
         type: integer
-    SiteId:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        type: string
     After:
       in: query
       name: after
       schema:
         type: string
-    Before:
-      in: query
-      name: before
+    SiteId:
+      in: path
+      name: site_id
+      required: true
       schema:
         type: string
   securitySchemes:
