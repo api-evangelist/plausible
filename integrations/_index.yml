@@ -16,6 +16,37 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: plausible-npm-registry
+  label: npm registry
+  partner: npm
+  partner_name: npm registry
+  category: official SDK (JavaScript/TypeScript)
+  type: register
+  channel: package-registry
+  evidence: https://www.npmjs.com/package/plausible-tracker
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: plausible-tracker
+      version: 0.3.9
+      released: '2025-10-27'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/plausible-tracker
+      repo_leg: github-org:plausible
+      publisher_leg: email:plausible.io
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
 - slug: plausible-airbyte
   label: Airbyte
   partner: airbyte
@@ -75,34 +106,44 @@
     builder: 'community (Meltano Hub variant maintainers: airbyte)'
   status: not-a-workflow
   arazzo: null
-- slug: plausible-npm-registry
-  label: npm registry
-  partner: npm
-  partner_name: npm registry
-  category: official SDK (JavaScript/TypeScript)
-  type: register
-  channel: package-registry
-  evidence: https://www.npmjs.com/package/plausible-tracker
+- slug: plausible-raycast
+  label: Raycast
+  partner: raycast
+  partner_name: Raycast
+  category: Raycast Store extension (community wrapper)
+  type: marketplace
+  marketplace: raycast-store
+  channel: connector-listing
+  evidence: https://www.raycast.com/thebrokenfinger/plausible-analytics
   source: edge
-  relationship: distribution-channel
+  relationship: connector-coverage
   contract_reference:
-    register: npm registry (public registry JSON)
+    register: Raycast Store (raycast/extensions monorepo + store_listings JSON)
     spec_file: null
-    language: JavaScript/TypeScript
-    packages:
-    - name: plausible-tracker
-      version: 0.3.9
-      released: '2025-10-27'
-      released_field: modified
-      lapsed: false
-      page: https://www.npmjs.com/package/plausible-tracker
-      repo_leg: github-org:plausible
-      publisher_leg: email:plausible.io
-      matched_by: domain
-    current: true
-    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
-      24 months'
-    detected_by: sweep-official-sdks.py
-    detected: '2026-10-18'
+    role: raycast-community-wrapper
+    builder: community
+    authors:
+    - thebrokenfinger
+    matched_domain: plausible.io
+    matched_by: domain
+    monorepo_commit: 84f9ac51336a8c69f70974a75bc067c0feae3658
+    listings:
+    - title: Plausible Analytics
+      store_url: https://www.raycast.com/thebrokenfinger/plausible-analytics
+      installs: 292
+      categories:
+      - Web
+      - Productivity
+      source: https://github.com/raycast/extensions/tree/84f9ac51336a8c69f70974a75bc067c0feae3658/extensions/plausible-analytics/
+      author: thebrokenfinger
+    categories:
+    - Productivity
+    - Web
+    identity_note: the extension's own source calls a host on the product's domain AND its title / package name
+      passes partner_link's name check; built by Raycast community developers, not the vendor
+    signal_note: 'coverage: Raycast''s store reaches the product through community-built extensions; one edge per
+      (product, store); install / listing counts are context, never counted'
+    detected_by: sweep-raycast-store-extensions.py
+    detected: '2026-10-22'
   status: not-a-workflow
   arazzo: null
