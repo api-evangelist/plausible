@@ -1,4 +1,4 @@
-# Plausible (plausible)
+# Plausible
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,123 +66,164 @@
 
 Plausible is an open source, privacy-friendly web analytics platform designed as a lightweight alternative to Google Analytics. It provides essential website traffic metrics without using cookies or collecting personal data, making it compliant with GDPR, CCPA, and other privacy regulations out of the box. It can be self-hosted or used as a cloud service.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/apis.yml)
+**Areas:** Analytics · Cookie-Free · Event Tracking · GDPR · Goal Conversions · Open Source · Privacy · Self-Hosted · Site Management · Web Analytics
 
-## Scope
+## Plausible on APIs.io
 
-- **Type:** Index
+Everything profiled for Plausible is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/plausible/](https://apis.io/providers/plausible/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (8)
 
-- Analytics
-- Cookie-Free
-- GDPR
-- Open Source
-- Privacy
-- Web Analytics
+- [Plausible CustomProps API](https://apis.io/apis/plausible/plausible-customprops-api/) — The CustomProps API from Plausible — 2 operation(s) for customprops.
+- [Plausible Events API](https://apis.io/apis/plausible/plausible-events-api/) — Submit pageviews and custom events.
+- [Plausible Goals API](https://apis.io/apis/plausible/plausible-goals-api/) — The Goals API from Plausible — 2 operation(s) for goals.
+- [Plausible Guests API](https://apis.io/apis/plausible/plausible-guests-api/) — The Guests API from Plausible — 2 operation(s) for guests.
+- [Plausible Query API](https://apis.io/apis/plausible/plausible-query-api/) — Run analytics queries against site data.
+- [Plausible Sites API](https://apis.io/apis/plausible/plausible-sites-api/) — The Sites API from Plausible — 2 operation(s) for sites.
+- [Plausible Teams API](https://apis.io/apis/plausible/plausible-teams-api/) — The Teams API from Plausible — 1 operation(s) for teams.
+- [Plausible Shared Links API](https://apis.io/apis/plausible/plausible-shared-links-api/) — The Shared Links API from Plausible — 1 operation(s) for shared links.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-26
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### Plausible Stats API
+Model Context Protocol servers that expose the API to agents.
 
-The Plausible Stats API provides programmatic access to website analytics data including aggregate metrics, time-series data, and breakdowns by various dimensions such as pages, sources, countries, devices, and browsers. It enables developers to retrieve visitor counts, pageviews, bounce rates, visit durations, and custom event data for building external dashboards and integrating analytics into other applications.
+- [plausible](https://apis.io/servers/plausible/plausible/)
 
-- **Human URL:** [https://plausible.io/docs/stats-api](https://plausible.io/docs/stats-api)
-- **Base URL:** `https://plausible.io/api/v2`
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Analytics
-- Metrics
-- Reporting
-- Statistics
+- [Plausible Agentic Access](https://apis.io/agentic-access/plausible/plausible-agentic-access/)
 
-#### Properties
+#### Collections (11)
 
-- [Documentation](https://plausible.io/docs/stats-api)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/openapi/plausible-stats-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/plausible-events.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/plausible-events.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/plausible-sites.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/plausible-sites.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/plausible-stats.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/plausible-stats.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-### Plausible Events API
+- [Plausible Events CustomProps API](https://apis.io/collections/plausible/open-plausible-customprops-api/)
+- [Plausible Events API](https://apis.io/collections/plausible/open-plausible-events/)
+- [Plausible CustomProps Events API](https://apis.io/collections/plausible/open-plausible-events-api/)
+- [Plausible Events CustomProps Goals API](https://apis.io/collections/plausible/open-plausible-goals-api/)
+- [Plausible Events CustomProps Guests API](https://apis.io/collections/plausible/open-plausible-guests-api/)
+- [Plausible Events CustomProps Query API](https://apis.io/collections/plausible/open-plausible-query-api/)
+- [Plausible Events CustomProps SharedLinks API](https://apis.io/collections/plausible/open-plausible-sharedlinks-api/)
+- [Plausible Sites API](https://apis.io/collections/plausible/open-plausible-sites/)
+- [Plausible Events CustomProps Sites API](https://apis.io/collections/plausible/open-plausible-sites-api/)
+- [Plausible Stats API](https://apis.io/collections/plausible/open-plausible-stats/)
+- [Plausible Events CustomProps Teams API](https://apis.io/collections/plausible/open-plausible-teams-api/)
 
-The Plausible Events API allows developers to send pageview and custom events to Plausible from server-side applications, mobile apps, or any environment where the standard JavaScript snippet cannot be used. It supports recording pageviews, custom events with properties, and revenue tracking data while maintaining Plausible's privacy-first approach.
+#### Overlays (8)
 
-- **Human URL:** [https://plausible.io/docs/events-api](https://plausible.io/docs/events-api)
-- **Base URL:** `https://plausible.io/api`
+OpenAPI overlays, including conversational phrasing for each operation.
 
-#### Tags
+- [Plausible Customprops Api Overlay](https://apis.io/overlays/plausible/plausible-customprops-api-overlay/)
+- [Plausible Events Api Overlay](https://apis.io/overlays/plausible/plausible-events-api-overlay/)
+- [Plausible Goals Api Overlay](https://apis.io/overlays/plausible/plausible-goals-api-overlay/)
+- [Plausible Guests Api Overlay](https://apis.io/overlays/plausible/plausible-guests-api-overlay/)
+- [Plausible Query Api Overlay](https://apis.io/overlays/plausible/plausible-query-api-overlay/)
+- [Plausible Sharedlinks Api Overlay](https://apis.io/overlays/plausible/plausible-sharedlinks-api-overlay/)
+- [Plausible Sites Api Overlay](https://apis.io/overlays/plausible/plausible-sites-api-overlay/)
+- [Plausible Teams Api Overlay](https://apis.io/overlays/plausible/plausible-teams-api-overlay/)
 
-- Analytics
-- Events
-- Pageviews
-- Tracking
+#### Security (3)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Documentation](https://plausible.io/docs/events-api)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/openapi/plausible-events-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/plausible-events.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/plausible-events.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/plausible-sites.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/plausible-sites.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/plausible-stats.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/plausible-stats.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Plausible Authentication](https://apis.io/security/plausible/plausible-authentication/)
+- [Plausible Domain Security](https://apis.io/security/plausible/plausible-domain-security/)
+- [Plausible Vulnerability Disclosure](https://apis.io/security/plausible/plausible-vulnerability-disclosure/)
 
-### Plausible Sites API
+#### Plans and pricing (1)
 
-The Plausible Sites API enables developers to programmatically manage sites within their Plausible account. It supports creating new sites, deleting existing sites, retrieving site information, and managing shared links and goals. This API is useful for agencies and platforms that need to automate site provisioning and configuration.
+Published plans, tiers and prices.
 
-- **Human URL:** [https://plausible.io/docs/sites-api](https://plausible.io/docs/sites-api)
-- **Base URL:** `https://plausible.io/api/v1/sites`
+- [Plausible Plans Pricing](https://apis.io/plans/plausible/plausible-plans-pricing/)
 
-#### Tags
+#### Rate limits (1)
 
-- Analytics
-- Management
-- Provisioning
-- Sites
+Published request limits.
 
-#### Properties
+- [Plausible Rate Limits](https://apis.io/rate-limits/plausible/plausible-rate-limits/)
 
-- [Documentation](https://plausible.io/docs/sites-api)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/plausible/refs/heads/main/openapi/plausible-sites-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/plausible-events.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/plausible-events.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/plausible-sites.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/plausible-sites.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/plausible-stats.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/plausible-stats.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### FinOps (1)
 
-## Common Properties
+What the API costs to run, by operation.
 
-- [LinkedIn](https://www.linkedin.com/company/plausible-analytics)
+- [Plausible Finops](https://apis.io/finops/plausible/plausible-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://plausible.io)
 - [Documentation](https://plausible.io/docs)
-- [A P I Documentation](https://plausible.io/docs/stats-api)
-- [Getting Started](https://plausible.io/docs/add-website)
-- [Blog](https://plausible.io/blog)
+- [Getting started](https://plausible.io/docs/add-website)
+- [API reference](https://plausible.io/docs/stats-api)
 - [Pricing](https://plausible.io/pricing)
-- [Git Hub](https://github.com/plausible/analytics)
-- [Login](https://plausible.io/login)
-- [Sign Up](https://plausible.io/register)
 - [Support](https://plausible.io/contact)
-- [Self Hosted](https://plausible.io/self-hosted-web-analytics)
 - [Changelog](https://github.com/plausible/analytics/releases)
-- [Terms of Service](https://plausible.io/terms)
-- [Privacy Policy](https://plausible.io/privacy)
-- [Data Policy](https://plausible.io/data-policy)
+- [Blog](https://plausible.io/blog)
+- [Security](https://plausible.io/vulnerability-disclosure-program)
+- [Compliance](https://plausible.io/compliance)
+- [Terms of service](https://plausible.io/terms)
+- [Privacy policy](https://plausible.io/privacy)
+- [GitHub](https://github.com/plausible)
+- [Status](https://plausible.io/status)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 61.7** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 48.5 |
+| Contract governance | 18.2 |
+| Operational transparency | 81.6 |
+| Developer ergonomics | 69.6 |
+| Access clarity | 67.1 |
+
+**Agent readiness 23.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 35.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/plausible/](https://apis.io/providers/plausible/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Plausible: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/plausible/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
